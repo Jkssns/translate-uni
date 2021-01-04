@@ -1,0 +1,34 @@
+{
+  "pages": [
+    "pages/translate/Index",
+    "pages/history/Index"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "肥宅翻译",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#909399",
+    "selectedColor": "#19BE6B",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/translate/Index",
+        "iconPath": "static/imgs/translate.png",
+        "selectedIconPath": "static/imgs/translate_selected.png",
+        "text": "翻译"
+      },
+      {
+        "pagePath": "pages/history/Index",
+        "iconPath": "static/imgs/history.png",
+        "selectedIconPath": "static/imgs/history_selected.png",
+        "text": "历史记录"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

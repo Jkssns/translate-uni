@@ -1,0 +1,41 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+		  "path": "pages/translate/Index",
+		  "style": {}
+		},
+		{
+		  "path": "pages/history/Index",
+		  "style": {}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "肥宅翻译",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+	    "color": "#909399",
+	    "selectedColor": "#19BE6B",
+	    "borderStyle": "black",
+	    "backgroundColor": "#ffffff",
+		"list": [
+		  { 
+		    "pagePath": "pages/translate/Index",
+			"iconPath": "static/imgs/translate.png",
+			"selectedIconPath": "static/imgs/translate_selected.png",
+		    "text": "翻译"
+		  },
+		  { 
+		    "pagePath": "pages/history/Index",
+			"iconPath": "static/imgs/history.png",
+			"selectedIconPath": "static/imgs/history_selected.png",
+		    "text": "历史记录"
+		  }
+		]
+	}
+}
