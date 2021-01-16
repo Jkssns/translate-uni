@@ -1,6 +1,6 @@
 module.exports = {
 	// 配置路径别名
-	configureWebpack: {
+	configureWebpack: {     
 		devServer: {
 			disableHostCheck: true
 		}

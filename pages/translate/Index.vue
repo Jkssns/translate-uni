@@ -1,9 +1,9 @@
 <template>
 	<div class="translate">
 		<header class="t__header">
-			<u-button type="success" @click="show = true"
-				>{{ list[0][typeIndex[0]]['label'] }} - - - {{ list[1][typeIndex[1]]['label'] }}</u-button
-			>
+			<u-button type="success" @click="show = true">
+				{{ list[0][typeIndex[0]]['label'] }} - - - {{ list[1][typeIndex[1]]['label'] }}
+			</u-button>
 			<u-select
 				v-model="show"
 				:default-value="typeIndex"
@@ -14,40 +14,46 @@
 		</header>
 
 		<section class="t__section">
-			<u-input class="t__section__input"  v-model="value" type="text" :border="true" :clearable="true" placeholder="请输入" />
+			<u-input class="t__section__input"  v-model="value" type="text" :maxlength="-1" :border="true" :clearable="true" placeholder="请输入" />
 			<u-button class="t__section__button" type="success" @click="translate">翻译</u-button>
 		</section>
 
 		<main class="t__main">
-			<div class="t__translated">
-				{{translated}}
+			<div class="t__main__box" :style="{color: translated === '已翻译内容' ? '#C0C4CC' : '#303133'}">
+				<p class="t__translated__val">{{translated}}</p>
+			</div>
+			<div class="t__main__actions">
+				<u-button class="left__action" size="small" @click="translated='已翻译内容'">清空</u-button>
+				<u-button class="right__action" size="small" type="success" @click="copy">复制</u-button>
 			</div>
 			<div class="t__main__history">
 				<span class="history__item" v-for="item in 12" :key="item">{{item + '' + Math.random()}}</span>
 			</div>
 		</main>
-
+		
 		<footer class="t__footer">
 			新年新气象
 			<br>
 			肥宅翻译祝您的英语水平直线下降
 		</footer>
+
+		<ball></ball>
 	</div>
 </template>
 
 <script>
 	import data from '@/static/json/data.json'
-	// pages/map/map.js
-	// 这是引入百度翻译的md5加密文件，接口也是百度的翻译api，凡是后面注释百度的，都不用想，复制粘贴就行
-	import MD5 from './md5'; // 百度
-	// 百度
-	const appid = '20191120000358960'; // 百度
-	// 百度
-	const key = 'ptma_HAnUgrQlJ9MdzGX'; // 百度
-	// 百度
-	let salt = new Date().getTime(); // 百度
+	import MD5 from './md5'
+	import ball from '@/components/Ball.vue'
+	
+	const appid = '20191120000358960'; 
+	const key = 'ptma_HAnUgrQlJ9MdzGX'; 
+	let salt = new Date().getTime(); 
 	export default {
 		name: "translate",
+		components: {
+			ball,
+		},
 		data() {
 			return {
 				description: "翻译页面",
@@ -58,8 +64,14 @@
 				],
 				value: "",
 				typeIndex: [0, 1],
-				translated: '已翻译内容', // 已翻译内容
+				translated: '已翻译内容', 
+				aaa: false,
 			};
+		},
+		
+		mounted() {
+			// const subNvue = uni.getSubNVueById('sub');
+			// subNvue.show();
 		},
 
 		methods: {
@@ -81,8 +93,8 @@
 			},
 			
 			translate() {
-				const str1 = appid + this.value + salt + key; // 百度
-				const sign = MD5(str1); // 百度
+				const str1 = appid + this.value + salt + key; 
+				const sign = MD5(str1); 
 				const From = this.list[0][this.typeIndex[0]]
 				const to = this.list[1][this.typeIndex[1]]
 				let url
@@ -113,6 +125,15 @@
 				});
 			},
 
+			copy() {
+				uni.setClipboardData({
+					data: 'hello',
+					success: function () {
+						console.log('success');
+					}
+				})
+			},
+
 			confirm(e) {
 				console.log("e::: ", e);
 			},
@@ -120,66 +141,6 @@
 	};
 </script>
 
-<style lang="scss" scoped>
-	$radius: 4px;
-	
-	.translate {
-		padding: 30rpx;
-		.t__header {
-			
-		}
+<style>
 
-		.t__section {
-			margin-top: 30rpx;
-			display: flex;
-			justify-content: space-between;
-			.t__section__input {
-				flex: 1;
-			}
-			.t__section__button {
-				margin-left: 30rpx;
-			}
-		}
-
-		.t__main {
-			margin-top: 30rpx;
-			
-			.t__translated {
-				min-height: 240rpx;
-				padding: 10px;
-				border: 1rpx solid $u-border-color;
-				border-radius: $radius;
-			}
-			
-			.t__main__history {
-				display: flex;
-				flex-wrap: wrap;
-				margin-top: 30rpx;
-				.history__item {
-					display: inline-block;
-					max-width: 100rpx;
-					overflow: hidden;
-					white-space: nowrap;
-					text-overflow: ellipsis;
-					margin-right: 30rpx;
-					margin-bottom: 15rpx;
-					padding: 10rpx 15rpx;
-					background: rgba( #19BE6B, .7);
-					color: #fff;
-					border: 1rpx solid $u-border-color;
-					border-radius: 4rpx;
-				}
-			}
-		}
-
-
-		.t__footer {
-			position: absolute;
-			bottom: 100rpx;
-			width: calc(100% - 60rpx);
-			text-align: center;
-			line-height: 60rpx;
-			color: $u-type-success;
-		}
-	}
 </style>
