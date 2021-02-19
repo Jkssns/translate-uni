@@ -1,5 +1,15 @@
 <template>
-	<div class="floatBall__container">
+	<temp 
+		id="ball"
+		class="floatBall__container"
+		:style="{
+			left: left + 'px',
+			top: top + 'px',
+		}"
+		@[event.start].native="start"
+		@[event.move].native="move"
+		@[event.end].native="move"
+	>
 		<div class="floatBall__side"></div>
 		<div class="floatBall__wrapper" @click="handleShow"></div>
 		<ul class="floatBall__actions" :class="{hidden: hidden}">
@@ -7,7 +17,7 @@
 				v-for="(item, index) in actions"
 				:key="index"
 				class="action ball"
-                :class="{hide: hide}"
+				:class="{hide: hide}"
 				:style="{ transform: `rotate(${30 * index}deg) translate(-50%, -50%)` }"
 			>
 				<div :style="{ transform: `rotate(${360 - 30 * index}deg)` }">
@@ -15,13 +25,16 @@
 				</div>
 			</li>
 		</ul>
-	</div>
+	</temp>
 </template>
 
 <script>
-
+import temp from './temp.vue'
 export default {
 	name: "Ball",
+	components: {
+		temp
+	},
 	data() {
 		return {
 			description: "悬浮球",
@@ -37,63 +50,65 @@ export default {
 			],
 			event: this.$utils.isPc()
 				? {
-						start: "mousedown",
-						move: "mousemove",
-						end: "mouseup",
-				  }
+					start: "mousedown",
+					move: "mousemove",
+					end: "mouseup",
+				}
 				: {
-						start: "touchstart",
-						move: "touchmove",
-						end: "touchend",
-				  },
-
+					start: "touchstart",
+					move: "touchmove",
+					end: "touchend",
+			    },
+			left: 200,
+			top: 0,
+				
             hidden: false,
             hide: false,
 			moving: false,
 			canClick: true,
+			isPc: this.$utils.isPc(),
 		};
     },
     
 	computed: {},
-
+	
 	methods: {
 
 		handleShow() {
             if (!this.hidden) {
                 this.hide = true
-                setTimeout(() =>  
-                    this.hidden = true,
-                450)
+                setTimeout(() => {
+                    this.hidden = true
+				}, 450)
             } else {
                 this.hide = false
                 this.hidden = false
             }
 		},
+		
+		start() {
+			this.moving = true
+		},
 
 		move(e) {
-			moving = true["on" + event.start];
-
-			document.addEventListener([event.move], function (e) {
-				if (!moving) return;
-
-				if (moving) {
-					if (isPc) {
-						floatBallContainer.style.left = e.clientX - 20 + "px";
-						floatBallContainer.style.top = e.clientY - 20 + "px";
-					} else {
-						floatBallContainer.style.left =
-							e.changedTouches[0].clientX - 20 + "px";
-						floatBallContainer.style.top =
-							e.changedTouches[0].clientY - 20 + "px";
-					}
-					canClick = false;
+			if (!this.moving) return
+			if (this.moving) {
+				if (this.isPc) {
+					this.left = e.clientX - 20
+					this.top = e.clientY - 100
+				} else {
+					this.left = e.changedTouches[0].clientX - 20
+					this.top = e.changedTouches[0].clientY - 80
 				}
-			});
-			document.addEventListener([event.end], function (e) {
-				moving = false;
-				if (!isPc) canClick = true;
-			});
+				this.canClick = false;
+			}
 		},
+		
+		end() {
+			this.moving = false;
+			console.log("this.moving::: ", this.moving);
+			if (!this.isPc) this.canClick = true;
+		}
 	},
 };
 </script>
@@ -120,7 +135,9 @@ li {
 
 .floatBall__container {
 	position: absolute;
+	z-index: 3;
 	top: 200px;
+	right: 0;	
 	width: 40px;
 	height: 40px;
 	background: rgba(0, 0, 0, 0.5);
@@ -144,7 +161,6 @@ li {
 	left: 0;
 	border-radius: 50%;
 }
-
 .floatBall__actions {
 	position: absolute;
 	top: -75px;

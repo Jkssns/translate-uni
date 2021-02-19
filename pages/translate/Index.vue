@@ -2,7 +2,7 @@
 	<div class="translate">
 		<header class="t__header">
 			<u-button type="success" @click="show = true">
-				{{ list[0][typeIndex[0]]['label'] }} - - - {{ list[1][typeIndex[1]]['label'] }}
+				{{ list[0][typeIndex[0]]['label'] }} -- {{ list[1][typeIndex[1]]['label'] }}
 			</u-button>
 			<u-select
 				v-model="show"
@@ -70,8 +70,6 @@
 		},
 		
 		mounted() {
-			// const subNvue = uni.getSubNVueById('sub');
-			// subNvue.show();
 		},
 
 		methods: {
@@ -119,7 +117,6 @@
 				    time: new Date().getTime()
 				  },
 				  success: res => {
-					  console.log("res.data.trans_result[0].dst::: ", res.data.trans_result[0].dst);
 					  this.translated = res.data.trans_result[0].dst
 				  }
 				});
@@ -141,6 +138,70 @@
 	};
 </script>
 
-<style>
+<style lang="scss" scoped>
+	$gap: 20rpx;
+	.border {
+		border: 1px solid rgb(220, 223, 230);
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+	
+	.translate {
+		width: 80%;
+		margin: 0 auto;
+		.t__header {
+			margin: $gap auto 0;
+		}
+		
+		.t__section {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			margin: $gap 0;
+			.t__section__input {
+				margin-right: 10%;
+			}
+			>>> .uni-input-placeholder {
+				left: 0!important;
+			}
+		}
+		
+		.t__main {
+			.t__main__box {
+				padding: 5px 10px;
+				max-height: 300rpx;
+				overflow-y: scroll;
+				@extend .border;
+				.t__translated__val {
+					
+				}
+			}
+			
+			.t__main__actions {
+				display: flex;
+				justify-content: space-between;
+				margin: $gap 0;
+				.left__action, .right__action {
+					margin: 0;
+					padding: 5rpx 30rpx;
+					border: none!important;
+				}
+				.left__action::after, .right__action::after {
+					border: none;
+				}
+			}
+			
+			.t__main__history {
+				display: flex;
+				.history__item {
+					display: inline-block;
 
+				}
+			}
+		}
+		
+		.t__footer {
+			
+		}
+	}
 </style>
