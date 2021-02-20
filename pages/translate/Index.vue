@@ -37,7 +37,7 @@
 			肥宅翻译祝您的英语水平直线下降
 		</footer>
 
-		<ball></ball>
+		<ball @ball-click="ballClick"></ball>
 	</div>
 </template>
 
@@ -134,12 +134,17 @@
 			confirm(e) {
 				console.log("e::: ", e);
 			},
+			
+			ballClick(e) {
+				console.log("e::: ", e);
+			}
 		},
 	};
 </script>
 
 <style lang="scss" scoped>
 	$gap: 20rpx;
+	
 	.border {
 		border: 1px solid rgb(220, 223, 230);
 		border-radius: 4px;
