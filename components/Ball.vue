@@ -51,12 +51,10 @@ export default {
 			
 			x: 0,
 			y: getApp().globalData.info.windowHeight / 2,
-			
 			showSide: true,
             hidden: false,
             hide: false,
 			canClick: true,
-			isPc: this.$utils.isPc(),
 		};
     },
 	
@@ -65,6 +63,10 @@ export default {
 		direction() {
 			return this.showSide ? "vertical" : "all"
 		}
+	},
+	
+	mounted() {
+		
 	},
 	
 	methods: {
