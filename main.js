@@ -27,6 +27,9 @@ Vue.prototype._i18n = i18n
 import utils from '@/utils/index.js'
 Vue.prototype.$utils = utils
 
+import store from '@/proxy.js'
+Vue.prototype.$store = store
+
 App.mpType = 'app'
 Vue.config.productionTip = false
 

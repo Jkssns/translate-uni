@@ -23,13 +23,15 @@
 				<p class="t__translated__val">{{translated}}</p>
 			</div>
 			<div class="t__main__actions">
-				<u-button class="left__action" size="small" @click="translated='已翻译内容'">清空</u-button>
-				<u-button class="right__action" size="small" type="success" @click="copy">复制</u-button>
-			</div>
-			<div class="t__main__history">
-				<span class="history__item" v-for="item in 12" :key="item">{{item + '' + Math.random()}}</span>
+				<u-button class="left__action"  @click="translated='已翻译内容'">清空</u-button>
+				<u-button class="right__action" type="success" @click="copy">复制</u-button>
 			</div>
 		</main>
+		
+		<section class="t__saohua">
+			<u-tabs :list="alist"  active-color="#19BE6B" inactive-color="#606266" :is-scroll="false" :current="current" @change="onCurrentChange"></u-tabs>
+			<!-- https://api.lovelive.tools/api/SweetNothings/Serialization/Json%20/10?genderType=M -->
+		</section>
 		
 		<footer class="t__footer">
 			新年新气象
@@ -62,14 +64,23 @@
 					[{label: '自动识别', labelEn: 'auto', value: 'auto'}, ...data],
 					data,
 				],
+				alist: [{
+					name: '骚话'
+				}, {
+					name: '待付款'
+				}, {
+					name: '待评价',
+					count: 5
+				}],
+				current: 0,
 				value: "",
 				typeIndex: [0, 1],
 				translated: '已翻译内容', 
-				aaa: false,
 			};
 		},
 		
 		mounted() {
+			console.log(this.$store.a)
 		},
 
 		methods: {
@@ -137,7 +148,12 @@
 			
 			ballClick(e) {
 				console.log("e::: ", e);
+			},
+			
+			onCurrentChange(current) {
+				this.current = current
 			}
+			
 		},
 	};
 </script>
@@ -152,10 +168,13 @@
 	}
 	
 	.translate {
+		display: flex;
+		flex-direction: column;
 		width: 80%;
 		margin: 0 auto;
+		padding-bottom: 100rpx;
 		.t__header {
-			margin: $gap auto 0;
+			margin: $gap 0 0;
 		}
 		
 		.t__section {
@@ -178,7 +197,7 @@
 				overflow-y: scroll;
 				@extend .border;
 				.t__translated__val {
-					
+					min-height: 400rpx;
 				}
 			}
 			
@@ -195,18 +214,13 @@
 					border: none;
 				}
 			}
-			
-			.t__main__history {
-				display: flex;
-				.history__item {
-					display: inline-block;
-
-				}
-			}
 		}
 		
 		.t__footer {
-			
+			margin-top: $gap;
+			height: 100rpx;
+			color: var(--font-color);
+			text-align: center;
 		}
 	}
 </style>

@@ -28,4 +28,8 @@
 		width: 100%;
 		height: 100%;
 	}
+	
+	:root {
+		--font-color: #19be6b;
+	}
 </style>

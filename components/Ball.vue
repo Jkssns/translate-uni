@@ -10,9 +10,10 @@
 			@change="onChange"
 		>
 			<image v-if="showSide" class="img" src="../common/images/side.svg" @click="showBall"></image>
-			<div v-else id="ball" class="floatBall__container" >
+			<div v-else id="ball" class="floatBall__container">
 				<div class="floatBall__side"></div>
-				<div class="floatBall__wrapper" @click="handleShow"></div>
+				<div v-if="hide" class="floatBall__wrapper" @click="handleShow"></div>
+				<image v-else class="close__img" src="../common/images/close.svg"  @click="handleShow"></image>
 				<ul class="floatBall__actions" :class="{hidden: hidden}">
 					<li
 						v-for="(item, index) in actions"
@@ -42,7 +43,7 @@ export default {
 			actions: [
 				{ label: "换肤", value: "theme", src: "", },
 				{ label: "中文", value: "zh", src: "", },
-				{ label: "骚话", value: "love", src: "", },
+				{ label: "广告", value: "ad", src: "", },
 				{ label: "点赞", value: "like", src: "", },
 				{ label: "仓库", value: "github", src: "", },
 				{ label: "作者", value: "author", src: "", },
@@ -52,8 +53,8 @@ export default {
 			x: 0,
 			y: getApp().globalData.info.windowHeight / 2,
 			showSide: true,
-            hidden: false,
-            hide: false,
+            hidden: false,	// 控制动画时间
+            hide: false,	// 控制显示隐藏
 			canClick: true,
 		};
     },
@@ -62,7 +63,7 @@ export default {
 		// 移动的方向 all、vertical
 		direction() {
 			return this.showSide ? "vertical" : "all"
-		}
+		},
 	},
 	
 	mounted() {
@@ -111,17 +112,19 @@ li {
 
 .move__container {
 	position: absolute;
-	z-index: 999;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
+	z-index: 99;
 	height: 100%;
 	width: 100%;
+	pointer-events: none;
 }
 .move__wrapper {
 	width: 40px;
 	height: 40px;
+	pointer-events: auto;
 }
 .img {
 	position: absolute;
@@ -160,6 +163,11 @@ li {
 	box-sizing: border-box;
 	cursor: pointer;
 }
+.close__img {
+	@extend .floatBall__wrapper;
+	border: none;
+}
+
 .floatBall__side {
 	position: absolute;
 	left: 0;
