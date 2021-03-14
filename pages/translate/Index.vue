@@ -1,5 +1,5 @@
 <template>
-	<div class="translate">
+	<uni-global-page class="translate">
 		<header class="t__header">
 			<u-button type="success" @click="show = true">
 				{{ list[0][typeIndex[0]]['label'] }} -- {{ list[1][typeIndex[1]]['label'] }}
@@ -14,8 +14,8 @@
 		</header>
 
 		<section class="t__section">
-			<u-input class="t__section__input"  v-model="value" type="text" :maxlength="-1" :border="true" :clearable="true" placeholder="请输入" />
-			<u-button class="t__section__button" type="success" @click="translate">翻译</u-button>
+			<u-input class="t__section__input"  v-model="value" type="text" :maxlength="-1" :border="true" :clearable="true" :placeholder="$t('message.请输入')" />
+			<u-button class="t__section__button" type="success" @click="translate">{{$t('tabbar.翻译')}}</u-button>
 		</section>
 
 		<main class="t__main">
@@ -23,24 +23,32 @@
 				<p class="t__translated__val">{{translated}}</p>
 			</div>
 			<div class="t__main__actions">
-				<u-button class="left__action"  @click="translated='已翻译内容'">清空</u-button>
-				<u-button class="right__action" type="success" @click="copy">复制</u-button>
+				<u-button class="left__action"  @click="translated='已翻译内容'">{{$t('translate.清空')}}</u-button>
+				<u-button class="right__action" type="success" @click="copy(translated)">{{$t('translate.复制')}}</u-button>
 			</div>
-		</main>
+		</main> 
 		
 		<section class="t__saohua">
-			<u-tabs :list="alist"  active-color="#19BE6B" inactive-color="#606266" :is-scroll="false" :current="current" @change="onCurrentChange"></u-tabs>
-			<!-- https://api.lovelive.tools/api/SweetNothings/Serialization/Json%20/10?genderType=M -->
+			<u-tabs class="t__saohua__type" :list="alist" active-color="#19BE6B" inactive-color="#606266" :is-scroll="false" :current="current" @change="onCurrentChange"></u-tabs>
+			<div class="t__saohua__wrapper">
+				<p class="t__saohua__item" v-for="(item, index) in beautifulWords" :key="index">
+					<span class="t__saohua__text" :style="item.view ? {} : textItem" @click="viewText(item, index)" >{{item.text}}</span>
+					<span class="t__saohua__action" v-if="item.view">
+						<i class="iconfont icon-share t__saohua__icon"></i>
+						<i class="iconfont icon-copy t__saohua__icon" @click="copy(item.text)"></i>
+					</span>
+				</p>
+			</div>
 		</section>
 		
 		<footer class="t__footer">
-			新年新气象
+			{{$t('translate.新年新气象  ')}}
 			<br>
-			肥宅翻译祝您的英语水平直线下降
+			{{$t('translate.肥宅翻译祝您的英语水平直线下降')}}
 		</footer>
-
+		
 		<ball @ball-click="ballClick"></ball>
-	</div>
+	</uni-global-page>
 </template>
 
 <script>
@@ -48,9 +56,10 @@
 	import MD5 from './md5'
 	import ball from '@/components/Ball.vue'
 	
-	const appid = '20191120000358960'; 
-	const key = 'ptma_HAnUgrQlJ9MdzGX'; 
-	let salt = new Date().getTime(); 
+	const appid = '20191120000358960';
+	const key = 'ptma_HAnUgrQlJ9MdzGX';
+	let salt = new Date().getTime();
+	
 	export default {
 		name: "translate",
 		components: {
@@ -65,43 +74,45 @@
 					data,
 				],
 				alist: [{
-					name: '骚话'
+					name: '爱你',
+					key: 'Y'
 				}, {
-					name: '待付款'
+					name: '爱她',
+					key: 'M'
 				}, {
-					name: '待评价',
-					count: 5
+					name: '爱他',
+					key: 'F'
 				}],
-				current: 0,
-				value: "",
+				beautifulWords: [], 
 				typeIndex: [0, 1],
+				
+				current: 0,
+				value: "123",
 				translated: '已翻译内容', 
-			};
+				
+				textItem: {
+					overflow: 'hidden',
+					whiteSpace: 'nowrap',
+					textOverflow: 'ellipsis',
+				}
+			}
 		},
 		
 		mounted() {
-			console.log(this.$store.a)
+			this.getList()
+		},
+
+		watch: {
+			current(newV) {
+				let type = this.alist[newV].key
+				type === 'Y' ? '' : type
+				this.getList(type)
+			}
 		},
 
 		methods: {
-			/* 切换语言 */
-			switchLang() {
-				this.$i18n.locale = this.$i18n.locale == "en" ? "cn" : "en";
-				uni.setNavigationBarTitle({
-					title: this.$t("tabbar.肥宅翻译"),
-				});
-				// 注意：【支付宝小程序开发工具】需要1.13版本才支持此接口的模拟，真机预览不受限制
-				uni.setTabBarItem({
-					index: 0,
-					text: this.$t("tabbar.翻译"),
-				});
-				uni.setTabBarItem({
-					index: 1,
-					text: this.$t("tabbar.历史记录"),
-				});
-			},
-			
 			translate() {
+				if (!this.value) return;
 				const str1 = appid + this.value + salt + key; 
 				const sign = MD5(str1); 
 				const From = this.list[0][this.typeIndex[0]]
@@ -132,22 +143,75 @@
 				  }
 				});
 			},
-
-			copy() {
+			
+			getList(type) {
+				 uni.request({
+				    url: `https://api.lovelive.tools/api/SweetNothings/Serialization/Json%20/5?genderType=${type}`,
+				    method: 'GET',
+				    success: res => {
+						this.beautifulWords = res.data.returnObj || []
+						this.beautifulWords = res.data.returnObj.map(item => {
+							return {
+								view: false,
+								text: item
+							}
+					    })
+				    }
+				});
+			},
+			
+			viewText(item, index) {
+				item.view = !item.view
+			},
+			
+			share() {
+				
+			},
+			
+			copy(value) {
+				if (value) return;
 				uni.setClipboardData({
-					data: 'hello',
-					success: function () {
-						console.log('success');
-					}
-				})
+				    data: value,
+				    success: function() {
+				       this.toast(this.$t('message.复制成功'))
+				    }
+				});
 			},
 
 			confirm(e) {
-				console.log("e::: ", e);
+				console.log("e::: ", e)
 			},
 			
-			ballClick(e) {
-				console.log("e::: ", e);
+			ballClick(currentBall, item) {  // 分享  复制   点赞
+				switch(currentBall.key) {
+					case 'language':
+						this.switchLang(currentBall, item)
+						break;
+					case 'theme':
+						this.changeTheme(currentBall, item)
+						break;
+				}
+			},
+			
+			/* 切换语言 */
+			switchLang(item) {
+				this.$i18n.locale = this.$i18n.locale == "en" ? "cn" : "en";
+				uni.setNavigationBarTitle({
+					title: this.$t("tabbar.肥宅翻译"),
+				});
+				uni.setTabBarItem({
+					index: 0,
+					text: this.$t("tabbar.翻译"),
+				});
+				uni.setTabBarItem({
+					index: 1,
+					text: this.$t("tabbar.历史记录"),
+				});
+			},
+			
+			/* 切换皮肤 */
+			changeTheme(currentBall, item) {
+				this.$store.currentTheme = item.value
 			},
 			
 			onCurrentChange(current) {
@@ -216,10 +280,41 @@
 			}
 		}
 		
+		.t__saohua {
+			.t__saohua__type {
+			}
+			.t__saohua__wrapper {
+				margin-top: -10rpx;
+				padding-top: 10rpx;
+				border-top: 1px solid var(--themeColor);
+				.t__saohua__item {
+					padding: 5rpx 0;
+					width: 100%;
+					border-bottom: 1px dashed var(--secondFontColor);
+					.t__saohua__text {
+						display: block;
+						width: 100%;
+						min-width: 0;
+						min-height: 50rpx;
+						color: var(--secondFontColor);
+					}
+					.t__saohua__action {
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						width: calc(100% - 10rpx);
+						padding: 0 5rpx;
+						margin-top: 5rpx;
+						height: 50rpx;
+					}
+				}
+			}
+		}
+		
 		.t__footer {
 			margin-top: $gap;
 			height: 100rpx;
-			color: var(--font-color);
+			color: var(--fontColor);
 			text-align: center;
 		}
 	}

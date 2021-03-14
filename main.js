@@ -19,7 +19,6 @@ const i18n = new VueI18n({
 // 由于微信小程序的运行机制问题，需声明如下一行，H5和APP非必填
 Vue.prototype._i18n = i18n
 
-
 /* 组件 */
 
 
@@ -27,8 +26,17 @@ Vue.prototype._i18n = i18n
 import utils from '@/utils/index.js'
 Vue.prototype.$utils = utils
 
-import store from '@/proxy.js'
-Vue.prototype.$store = store
+import store from '@/store.js'
+// Vue.prototype.$set(Vue, '$store', 123)
+Vue.prototype.$store = Vue.observable(store)
+
+Vue.prototype.toast = (title, duration = 1500, obj) => {
+	uni.showToast({
+		title: title,
+		duration: duration,
+		...obj,
+	})
+}
 
 App.mpType = 'app'
 Vue.config.productionTip = false

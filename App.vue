@@ -14,22 +14,24 @@
 		onHide: function() {
 			console.log('App Hide')
 		},
-		globalData: {
-			
-		},
+		globalData: {},
 	}
 </script>
 
 <style lang="scss">
 	@import "uview-ui/index.scss";
-	/*每个页面公共css */
 	
+	
+	
+	/*每个页面公共css */
 	uni-page-body {
 		width: 100%;
 		height: 100%;
 	}
 	
 	:root {
-		--font-color: #19be6b;
+		--fontColor: #19be6b;
+		--secondFontColor: #606266;
+		--themeColor: #19be6b;
 	}
 </style>
