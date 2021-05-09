@@ -10,6 +10,7 @@
 					 :style="[tabItemStyle(index)]">
 						<u-badge :count="item[count] || item['count'] || 0" :offset="offset" size="mini"></u-badge>
 						{{ item[name] || item['name']}}
+						<slot :item="item"></slot>
 					</view>
 					<view v-if="showBar" class="u-tab-bar" :style="[tabBarStyle]"></view>
 				</view>

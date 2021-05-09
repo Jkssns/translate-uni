@@ -1,4 +1,4 @@
-export default {
+const store = {
 	themeObj: {
 		green: {	// 墨绿
 			fontColor: '#19be6b',
@@ -21,8 +21,13 @@ export default {
 			themeColor: '#19be6b'
 		},
 	},
-	currentTheme: 'green'
+	currentTheme: 'green',
+	lang: 'zh'
 }
+
+export default store
+
+
 	
 
 

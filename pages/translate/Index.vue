@@ -29,7 +29,12 @@
 		</main> 
 		
 		<section class="t__saohua">
-			<u-tabs class="t__saohua__type" :list="alist" active-color="#19BE6B" inactive-color="#606266" :is-scroll="false" :current="current" @change="onCurrentChange"></u-tabs>
+			<u-tabs class="t__saohua__type" :list="alist" active-color="#19BE6B" inactive-color="#606266" :is-scroll="false" :current="current" @change="onCurrentChange">
+				<template v-slot:default="slotProps">
+					<i v-if="slotProps.item.index === current" class="iconfont icon-Refresh t__refresh" @click="refresh"></i>
+				</template>
+			</u-tabs>
+			
 			<div class="t__saohua__wrapper">
 				<p class="t__saohua__item" v-for="(item, index) in beautifulWords" :key="index">
 					<span class="t__saohua__text" :style="item.view ? {} : textItem" @click="viewText(item, index)" >{{item.text}}</span>
@@ -42,7 +47,7 @@
 		</section>
 		
 		<footer class="t__footer">
-			{{$t('translate.新年新气象  ')}}
+			{{$t('translate.新年新气象')}}
 			<br>
 			{{$t('translate.肥宅翻译祝您的英语水平直线下降')}}
 		</footer>
@@ -75,13 +80,16 @@
 				],
 				alist: [{
 					name: '爱你',
-					key: 'Y'
+					key: 'Y',
+					index: 0,
 				}, {
 					name: '爱她',
-					key: 'M'
+					key: 'M',
+					index: 1,
 				}, {
 					name: '爱他',
-					key: 'F'
+					key: 'F',
+					index: 2,
 				}],
 				beautifulWords: [], 
 				typeIndex: [0, 1],
@@ -145,23 +153,28 @@
 			},
 			
 			getList(type) {
-				 uni.request({
-				    url: `https://api.lovelive.tools/api/SweetNothings/Serialization/Json%20/5?genderType=${type}`,
-				    method: 'GET',
-				    success: res => {
+				uni.request({
+					url: `https://api.lovelive.tools/api/SweetNothings/Serialization/Json%20/5?genderType=${type}`,
+					method: 'GET',
+					success: res => {
 						this.beautifulWords = res.data.returnObj || []
 						this.beautifulWords = res.data.returnObj.map(item => {
 							return {
 								view: false,
 								text: item
 							}
-					    })
-				    }
+						})
+					}
 				});
 			},
 			
 			viewText(item, index) {
 				item.view = !item.view
+			},
+			
+			/* 刷新*/
+			refresh() {
+				
 			},
 			
 			share() {
@@ -261,7 +274,7 @@
 				overflow-y: scroll;
 				@extend .border;
 				.t__translated__val {
-					min-height: 400rpx;
+					min-height: 280rpx;
 				}
 			}
 			
@@ -281,7 +294,10 @@
 		}
 		
 		.t__saohua {
-			.t__saohua__type {
+			.t__refresh {
+				position: absolute;
+				right: 10px;
+				top: 0px;
 			}
 			.t__saohua__wrapper {
 				margin-top: -10rpx;
