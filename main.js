@@ -27,7 +27,6 @@ import utils from '@/utils/index.js'
 Vue.prototype.$utils = utils
 
 import store from '@/store.js'
-// Vue.prototype.$set(Vue, '$store', 123)
 Vue.prototype.$store = Vue.observable(store)
 
 Vue.prototype.toast = (title, duration = 1500, obj) => {

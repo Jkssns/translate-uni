@@ -31,10 +31,9 @@
 		<section class="t__saohua">
 			<u-tabs class="t__saohua__type" :list="alist" active-color="#19BE6B" inactive-color="#606266" :is-scroll="false" :current="current" @change="onCurrentChange">
 				<template v-slot:default="slotProps">
-					<i v-if="slotProps.item.index === current" class="iconfont icon-Refresh t__refresh" @click="refresh"></i>
+					<i v-if="slotProps.item.index === current" class="iconfont icon-Refresh t__refresh" :class="{refreshStatus: refreshStatus}" @click="refresh"></i>
 				</template>
 			</u-tabs>
-			
 			<div class="t__saohua__wrapper">
 				<p class="t__saohua__item" v-for="(item, index) in beautifulWords" :key="index">
 					<span class="t__saohua__text" :style="item.view ? {} : textItem" @click="viewText(item, index)" >{{item.text}}</span>
@@ -102,7 +101,9 @@
 					overflow: 'hidden',
 					whiteSpace: 'nowrap',
 					textOverflow: 'ellipsis',
-				}
+				},
+
+                refreshStatus: false, // 刷新动画
 			}
 		},
 		
@@ -110,11 +111,11 @@
 			this.getList()
 		},
 
-		watch: {
-			current(newV) {
-				let type = this.alist[newV].key
-				type === 'Y' ? '' : type
-				this.getList(type)
+		computed: {
+			currentType() {  
+                let type = this.alist[this.current].key
+                type = type === 'Y' ? '' : type
+				return type
 			}
 		},
 
@@ -152,9 +153,9 @@
 				});
 			},
 			
-			getList(type) {
+			getList() {
 				uni.request({
-					url: `https://api.lovelive.tools/api/SweetNothings/Serialization/Json%20/5?genderType=${type}`,
+					url: `https://api.lovelive.tools/api/SweetNothings/Serialization/Json%20/5?genderType=${this.currentType}`,
 					method: 'GET',
 					success: res => {
 						this.beautifulWords = res.data.returnObj || []
@@ -174,7 +175,11 @@
 			
 			/* 刷新*/
 			refresh() {
-				
+                this.refreshStatus = true
+                this.getList()
+                setTimeout(() => {
+                    this.refreshStatus = false
+                }, 300)
 			},
 			
 			share() {
@@ -182,13 +187,13 @@
 			},
 			
 			copy(value) {
-				if (value) return;
+				if (!value) return;
 				uni.setClipboardData({
 				    data: value,
-				    success: function() {
+				    success: () => {
 				       this.toast(this.$t('message.复制成功'))
 				    }
-				});
+				})
 			},
 
 			confirm(e) {
@@ -229,6 +234,7 @@
 			
 			onCurrentChange(current) {
 				this.current = current
+                this.getList()
 			}
 			
 		},
@@ -298,6 +304,10 @@
 				position: absolute;
 				right: 10px;
 				top: 0px;
+                &.refreshStatus {
+                    transform: rotate(360deg);
+                    transition: all .3s;
+                }
 			}
 			.t__saohua__wrapper {
 				margin-top: -10rpx;
