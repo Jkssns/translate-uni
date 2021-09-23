@@ -1,6 +1,6 @@
 <template>
 	<uni-global-page class="translate">
-		<header class="t__header">
+		<!-- <header class="t__header">
 			<u-button type="success" @click="show = true">
 				{{ list[0][typeIndex[0]]['label'] }} -- {{ list[1][typeIndex[1]]['label'] }}
 			</u-button>
@@ -49,7 +49,7 @@
 			{{$t('translate.新年新气象')}}
 			<br>
 			{{$t('translate.肥宅翻译祝您的英语水平直线下降')}}
-		</footer>
+		</footer> -->
 		
 		<ball @ball-click="ballClick"></ball>
 	</uni-global-page>
@@ -94,7 +94,7 @@
 				typeIndex: [0, 1],
 				
 				current: 0,
-				value: "123",
+				value: "test",
 				translated: '已翻译内容', 
 				
 				textItem: {

@@ -2,7 +2,11 @@
 	"easycom": {
 		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
 	},
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
+		{
+			"path": "pages/code/Index",
+			"style": {}
+		},
 		{
 		  "path": "pages/translate/Index",
 		  "style": {}  
@@ -14,30 +18,30 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "肥宅翻译",
+		"navigationBarTitleText": "test",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"tabBar": {
-	    "color": "#909399",
-	    "selectedColor": "#19be6b",
-	    "borderStyle": "black",
-	    "backgroundColor": "#ffffff",
-		"list": [
-		  { 
-		    "pagePath": "pages/translate/Index",
-			"iconPath": "static/imgs/translate.png",
-			"selectedIconPath": "static/imgs/translate_selected.png",
-		    "text": "翻译"
-		  },
-		  { 
-		    "pagePath": "pages/history/Index",
-			"iconPath": "static/imgs/history.png",
-			"selectedIconPath": "static/imgs/history_selected.png",
-		    "text": "历史记录"
-		  }
-		]
-	},
+	// "tabBar": {
+	//     "color": "#909399",
+	//     "selectedColor": "#19be6b",
+	//     "borderStyle": "black",
+	//     "backgroundColor": "#ffffff",
+	// 	"list": [
+	// 	  { 
+	// 	    "pagePath": "pages/translate/Index",
+	// 		"iconPath": "static/imgs/translate.png",
+	// 		"selectedIconPath": "static/imgs/translate_selected.png",
+	// 	    "text": "翻译"
+	// 	  },
+	// 	  { 
+	// 	    "pagePath": "pages/history/Index",
+	// 		"iconPath": "static/imgs/history.png",
+	// 		"selectedIconPath": "static/imgs/history_selected.png",
+	// 	    "text": "历史记录"
+	// 	  }
+	// 	]
+	// },
 	"condition" : { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)
 		"list": [

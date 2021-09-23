@@ -8,13 +8,11 @@
 	export default {
 		name: 'uniGlobalPage',
 		computed: {
-			themeObj() {
-				return this.$store.themeObj[this.$store.currentTheme]
+			themeObj() { 
+				return this.$store.state.themeObj[this.$store.state.currentTheme]
 			},
 		},
-		
 		mounted() {
-			console.log(this.$store)
 		},
 		
 		// watch: {
@@ -38,11 +36,9 @@
 	export default {
 		methods: {
 			onChange(newV, oldV) {
-				console.log(newV, 123)
 				this.changeThemeColor(newV)
 			},
 			changeThemeColor(obj) {
-				console.log("obj::: ", obj);
 				for (let i in obj) {
 					document.body.style.setProperty('--' + i, obj[i]);
 				}
