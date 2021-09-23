@@ -2,6 +2,7 @@
     <div>
         <textarea type="text" v-model="code" style="width: 100%;padding-left: 15px;letter-spacing: 1px;" maxlength="-1" focus auto-height cursor-spacing="10" auto-blur adjust-position="false" 	 />
         <button @click="confirm">确定</button>
+		无法查看console.log，请使用alert()替代调试。
 
 		<p v-html="result"></p>
     </div> 
