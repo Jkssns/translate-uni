@@ -21,7 +21,13 @@
 <style lang="scss">
 	@import "uview-ui/index.scss";
 	@import "./common/font/iconfont.css";
-	
+	ul,ol {
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		list-style: none;
+	}
 	/*每个页面公共css */
 	uni-page-body {
 		width: 100%;
@@ -29,6 +35,7 @@
 	}
 	
 	:root {
+		--primary-color: #19be6b;
 		--fontColor: #19be6b;
 		--secondFontColor: #606266;
 		--themeColor: #19be6b;

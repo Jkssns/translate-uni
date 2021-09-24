@@ -19,6 +19,7 @@ Vue.prototype.toast = (title, duration = 1500, obj) => {
 	uni.showToast({
 		title: title,
 		duration: duration,
+		icon: 'none',
 		...obj,
 	})
 }
@@ -27,7 +28,6 @@ Vue.prototype.toast = (title, duration = 1500, obj) => {
 App.mpType = 'app'
 Vue.config.productionTip = false
 
-console.log("store::: ", store);
 
 const app = new Vue({
 	i18n,
