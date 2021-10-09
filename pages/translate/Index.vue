@@ -1,6 +1,6 @@
 <template>
 	<uni-global-page class="translate">
-		<!-- <header class="t__header">
+		<header class="t__header">
 			<u-button type="success" @click="show = true">
 				{{ list[0][typeIndex[0]]['label'] }} -- {{ list[1][typeIndex[1]]['label'] }}
 			</u-button>
@@ -15,7 +15,7 @@
 
 		<section class="t__section">
 			<u-input class="t__section__input"  v-model="value" type="text" :maxlength="-1" :border="true" :clearable="true" :placeholder="$t('message.请输入')" />
-			<u-button class="t__section__button" type="success" @click="translate">{{$t('tabbar.翻译')}}</u-button>
+			<u-button class="t__section__button" type="success" @click="translate">{{$t('tabbar.翻译')}}111</u-button>
 		</section>
 
 		<main class="t__main">
@@ -49,7 +49,7 @@
 			{{$t('translate.新年新气象')}}
 			<br>
 			{{$t('translate.肥宅翻译祝您的英语水平直线下降')}}
-		</footer> -->
+		</footer>
 		
 		<ball @ball-click="ballClick"></ball>
 	</uni-global-page>
@@ -124,7 +124,8 @@
 				if (!this.value) return;
 				const str1 = appid + this.value + salt + key; 
 				const sign = MD5(str1); 
-				const From = this.list[0][this.typeIndex[0]]
+				// const From = this.list[0][this.typeIndex[0]]
+				const From = 'zh'
 				const to = this.list[1][this.typeIndex[1]]
 				let url
 				
@@ -142,10 +143,12 @@
 				    q: this.value,
 				    appid: appid,
 				    salt: salt,
-				    from: From.value,
+				    from: From,
 				    to: to.value,
 				    sign: sign,
-				    time: new Date().getTime()
+				    time: new Date().getTime(),
+					tts: 0,
+					dict: 0,
 				  },
 				  success: res => {
 					  this.translated = res.data.trans_result[0].dst

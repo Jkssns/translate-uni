@@ -1,21 +1,19 @@
 <template>
   <div>
-    历史记录页面
-	<div class="t__main__history">
-		<span class="history__item" v-for="item in 40" :key="item">{{item + '' + Math.random() }}</span>
-	</div>
+	<button @click="file.a++">click</button>
+    <!-- 历史记录页面 -->
+	<view :file="file" :change:file="test.update" class="echarts__item" ></view>
   </div>
 </template>
 
 <script>
   export default {
     name: 'history',
-    data() {
-      return {
-        description: '历史记录页面',
-        
-      }
-    },
+	data() {
+		return {
+			file: {a: 1}
+		}
+	},
 
     created() {
         
@@ -26,30 +24,50 @@
     },
 
     methods: {
-        
+        // video
+		setBase64(base64) {
+			base64ToPath(base64).then(filePath => {
+				console.log(filePath, 'filepath')
+			})
+		}
     }
 
   }
 </script>
 
-<style lang="scss" scoped>
-			.t__main__history {
-				display: flex;
-				justify-content: space-between;
-				flex-wrap: wrap;
-				margin-top: 70rpx;
-				.history__item {
-					display: inline-block;
-					min-width: 0;
-					width: 20%;
-					height: auto;
-					margin: 0 2%;
-					margin-bottom: 50rpx;
-					line-height: 1;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					white-space: nowrap;
+<script lang="renderjs" module="test">
+	export default {
+		mounted() {
+			console.log(this.file)
+		},
+		watch: {
+			file: {
+				deep: true,
+				handler() {
+					console.log(this.file, 'watch')
 				}
 			}
+		},
+		methods: {
+			getBase64(file) {
+				const reader = new FileReader()
+				reader.readAsDataURL(file[0])
+				reader.onload = function (e) {
+					console.log(e.target.result, 'base64')
+					this.$ownerInstance.callMethod('setBase64', e.target.result);
+				}
+			},
+			update(e, e1, e2) {
+				console.log(e, e1, e2, 'change')
+				if (this.file) {
+					this.getBase64(this.file)
+				}
+			},
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+
   
 </style>

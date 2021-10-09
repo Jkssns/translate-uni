@@ -4,16 +4,16 @@
 	},
 	"pages": [
 		{
-			"path": "pages/code/Index",
-			"style": {}
+		  "path": "pages/history/Index",
+		  "style": {}
 		},
 		{
 		  "path": "pages/translate/Index",
 		  "style": {}  
 		},
 		{
-		  "path": "pages/history/Index",
-		  "style": {}
+			"path": "pages/code/Index",
+			"style": {}
 		}
 	],
 	"globalStyle": {
