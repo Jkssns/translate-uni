@@ -34,6 +34,7 @@
 		height: 100%;
 	}
 	
+	
 	:root {
 		--primary-color: #19be6b;
 		--fontColor: #19be6b;

@@ -30,7 +30,6 @@ const install = (Vue, options) => {
         beforeCreate() {   
             //vue实例属性$options是获取除了data之外的方法和属性的,options的具体内容见详情A
             if(this.$options.store){
-				console.log("this.$options.store::: ", this.$options.store);
                 Vue.prototype.$store = this.$options.store;
             }
         },
