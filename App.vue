@@ -28,7 +28,7 @@
 	li {
 		list-style: none;
 	}
-	/*每个页面公共css */
+	/* 每个页面公共css */
 	uni-page-body {
 		width: 100%;
 		height: 100%;

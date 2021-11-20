@@ -1,33 +1,21 @@
 <template>
-	<div class="code__container" :style="{height: inputHeight}">
+	<div class="code__container">
 		<div class="code__wrapper">
-			<ul class="line__number__wrapper">
-				<li class="line__item" v-for="item in lineNumber" :key="item">{{item}}</li>
-			</ul>
-
-			<textarea
-				class="code__input" 
-				type="text"
-				v-model="code"
-				maxlength="-1"
-				:style="{height: `calc(${50 * lineNumber}rpx)`}"
-				placeholder="调试请用log()代替console.log()"
-				cursor-spacing="-50"
-				auto-blur
-				:focus="setFocus"
-				:hold-keyboard="false"
-				:adjust-position="false"
-				:cursor="cursorPosition"
-				@focus="onFocus"
-				@blur="onBlur"
-				@linechange="onLineChange"
-			/>
+			
+			<scroll-view :scroll-y="true" :style="{height: inputHeight}">
+				<div style="display: flex;">
+					<ul class="line__number__wrapper">
+						<li class="line__item" v-for="item in lineNumber" :key="item">{{item}}</li>
+					</ul>
+					<editor id="editor" class="ql-container" @click="clickEditor"  placeholder="调试请用log()代替console.log()" @ready="onEditorReady" @input="onInput"></editor>
+				</div>
+			</scroll-view>
 		</div>
 
-		<footer>
-			test
+		<footer :style="{bottom: KeyboardHeight}">
+			<button @click="handleClick">click</button>
 		</footer>
-		
+
 		<!-- <div class="action__wrapper">
 			<button class="btn" @click="confirm">执行</button>
 		</div>
@@ -48,18 +36,38 @@
 			<button class="btn" @click="copy('result')">复制结果</button>
 		</div>
 		 -->
+		
 		<!-- h5 复制用 -->
 		<input id="copyText" type="text" style="position: absolute;z-index: -1;opacity: 0;top: 0;left: 0;pointer-events: none;">
 	</div>
 </template>
 
 <script>
+	/**
+	 * @description 一个普通函数，在其中写js代码。暂不支持接口请求，后期会支持。
+	 * @return {any} 在函数内部计算出的结果，点击执行后会在控制台显示。
+	 * 
+	 * */
+
+
 	export default {
 		name: 'history',
 		data() {
 			return {
 				description: '手机写代码',
-				code: ``, // 用户输入的代码
+				code: `	<span style="color: #bababa;">
+/**<br>
+* @description 一个普通函数，在其中写js代码。暂不支持接口请求，后期会支持。<br>
+* @return {any} 在函数内部计算出的结果，点击执行后会在控制台显示。<br>
+* <br>
+* */
+</span>
+<br>
+<p>function fn() {</p>
+<p>return 123</p>
+<p>}</p>
+<p>fn()</p>
+`,
 				result: '', // 执行结果
 				right: true, // 结果状态 true：执行正确 false：执行错误
 				logs: [], // 用户输入的log结果
@@ -76,34 +84,31 @@
 					{ label: '[]',	  value: '[]'	 },
 					{ label: '=>',	  value: '=>'	 },
 					{ label: 'Tab',	  value: '	'    },
-					{ label: '空格',   value: ' '	 },
+					{ label: '空格',   value: ' '	 }, 
 				],
 				end: 0,
-				cursorPosition: 0,
-				lineNumber: 1, // 行数
+				lineNumber: 30, // 行数
 				inputHeight: '100%', // 总体高度
+				KeyboardHeight: 0, // 键盘高度
+				editorCtx: null, // 编辑器实例
 
 				setFocus: false,
 				showShortcuts: false,
 			}
 		},
-		
-		onLoad() {
-			
-		},	
-
-		created() {
-			
-		},
 
 		mounted() {
 			uni.onKeyboardHeightChange(res => {
-				this.inputHeight = `calc(100% - ${e.detail.height + 'px'})`
+				this.KeyboardHeight = res.height + 'px'
+				console.log(res)
+				this.inputHeight = `calc(100% - ${res.height + 'px'})`
 				// #ifdef APP-PLUS
-				this.inputHeight = `calc(100vh - ${e.detail.height + 'px'})`
+				this.inputHeight = `calc(100vh - ${res.height + 'px'})`
 				// #endif
-				console.log("this.inputHeight::: ", this.inputHeight);
 			})
+			
+			uni.vibrate()
+			
 		},
 
 		computed: {
@@ -113,6 +118,11 @@
 		},
 
 		methods: {
+			onInput(a, b, c) {
+				console.log(a)
+				this.content = a.detail.text
+				console.log(this.content)
+			},
 			/* 从剪贴板获取代码 */
 			getCode() {
 				// #ifdef H5
@@ -131,43 +141,65 @@
 			},
 			
 			/* 失去焦点时，获取光标位置 */
-			onBlur({ detail: { value, cursor } } = e) {
+			onBlur({ detail: { value, cursor } }) {
 				this.setFocus = false
-				this.end = cursor
 			},
 
 			/* 复制 */
 			copy(flag) {
 				this.showShortcuts = false
+				
 				// #ifdef H5
-					let ipt = document.getElementById("copyText");
-					ipt.value = this[flag]
-					ipt.select();
-					document.execCommand("Copy");
+				let ipt = document.getElementById("copyText");
+				ipt.value = this[flag]
+				ipt.select();
+				document.execCommand("Copy");
 				// #endif
-					uni.setClipboardData({
-						data: this[flag],
-						success: (res) => {
-							this.code = res.data
-						}
-					});
+
+				uni.setClipboardData({
+					data: this[flag],
+					success: (res) => {
+						this.code = res.data
+					}
+				});
 			},
 
-			/* 使用快捷方式，添加快捷方式至光标消失的地方 */
-			setShortcut(item) {
-				let str = this.code.substring(0, this.end)
-				this.code = this.code.replace(str, str + item.value)
-				this.cursorPosition = this.end + item.value.length
-				// setTimeout(() => {
-					this.setFocus = true
-				// }, 150)
+			handleClick() {
+				uni.vibrateShort({
+				    success: function () {
+				        console.log('success');
+				    }
+				});
+				this.confirm()
 			},
 
-			onLineChange(event) {
-				this.lineNumber = event.detail.lineCount
-				// console.log("height, heightRpx, lineCount::: ", height, heightRpx, lineCount);
+		   onEditorReady() {
+				// #ifdef MP-BAIDU
+				this.editorCtx = requireDynamicLib('editorLib').createEditorContext('editorId');
+				// #endif
+
+				// #ifdef APP-PLUS || H5 || MP-WEIXIN
+				uni.createSelectorQuery().select('#editor').context((res) => {
+				  this.editorCtx = res.context
+				  this.editorCtx.setContents({
+					  html: this.code,
+					  complete: (res) => {
+						  console.log(res, 333)
+					  }
+				  })
+
+				}).exec()
+				// #endif
+			},
+			
+
+			clickEditor(){
+				if(this.hideKeyboardTime){
+					clearInterval(this.hideKeyboardTime);
+				}
 			},
 
+	
 			/* 执行 */
 			confirm() {
 				this.showShortcuts = false
@@ -180,13 +212,15 @@
 					this.right = true // 重置结果状态
 					this.logs = [] // 重置log
 
+							// var that = this;
+							// function log() { 
+							// 	that.logs.push(Array.from(arguments)); 
+							// }
 					let tempStr = `
-							var that = this;
-							function log() { 
-								that.logs.push(Array.from(arguments)); 
-							}
-							${this.code}
+							${this.content}
 						`
+						
+						console.log(tempStr)
 					let res = eval(tempStr)
 					let str = ''
 
@@ -196,9 +230,12 @@
 							str += `<span style="color: #3a3a3a">log::: ${item.join(', ')}</span>` + "<br>"
 						})
 					}
+					console.log(res, 'res')
 
 					this.result = str + res
+					console.log(this.result, 'this.result')
 				} catch (err) {
+					console.log(err)
 					this.right = false
 					this.result = err.toString()
 				}
@@ -209,6 +246,14 @@
 </script>
 
 <style lang="scss" scoped>
+    #editor {
+        width: 100%;
+		height: 100%;
+    }
+	.desc {
+		color: red!important;
+	}
+
 	.code__container {
 		width: 750rpx;
 
@@ -222,18 +267,18 @@
 
 		overflow: hidden;
 		.code__wrapper {
-			// display: flex;
+			display: flex;
 
-			// // #ifdef H5
-			// height: calc(100% - 100rpx);
-			// // #endif
+			// #ifdef H5
+			height: calc(100% - 100rpx);
+			// #endif
 
-			// // #ifdef APP-PLUS
-			// height: calc(100vh - 100rpx);
-			// // #endif
+			// #ifdef APP-PLUS
+			height: calc(100vh - 100rpx);
+			// #endif
 
-			// background: #f8f8f8;
-			// overflow-y: auto;
+			background: #f8f8f8;
+			overflow-y: auto;
 		}
 
 		.line__number__wrapper {
@@ -302,8 +347,6 @@
 
 		footer {
 			position: fixed;
-			bottom: 0;
-			// z-index: 1;
 			width: 100%;
 			height: 100rpx;
 			background: #fff;

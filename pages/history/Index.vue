@@ -2,7 +2,7 @@
   <div>
 	<button @click="file.a++">click</button>
     <!-- 历史记录页面 -->
-	<view :file="file" :change:file="test.update" class="echarts__item" ></view>
+	<!-- <view :file="file" :change:file="test.update" class="echarts__item" ></view> -->
   </div>
 </template>
 
