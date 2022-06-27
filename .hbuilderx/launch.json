@@ -14,7 +14,15 @@
      	{
      		"launchtype" : "local"
      	},
-     	"type" : "uniCloud"
+     	"mp-weixin" : 
+     	{
+     		"launchtype" : "local"
+     	},
+     	"type" : "uniCloud",
+     	"uniapp" : 
+     	{
+     		"launchtype" : "local"
+     	}
      }
     ]
 }

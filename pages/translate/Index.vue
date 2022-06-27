@@ -36,7 +36,8 @@
 			</u-tabs>
 			<div class="t__saohua__wrapper">
 				<p class="t__saohua__item" v-for="(item, index) in beautifulWords" :key="index">
-					<span class="t__saohua__text" :style="item.view ? {} : textItem" @click="viewText(item, index)" >{{item.text}}</span>
+					<span v-if="item.view" class="t__saohua__text" :style="textItem" @click="viewText(item, index)" >{{item.text}}</span>
+					<span v-else class="t__saohua__text" @click="viewText(item, index)" >{{item.text}}</span>
 					<span class="t__saohua__action" v-if="item.view">
 						<i class="iconfont icon-share t__saohua__icon"></i>
 						<i class="iconfont icon-copy t__saohua__icon" @click="copy(item.text)"></i>
@@ -273,7 +274,7 @@
 			.t__section__input {
 				margin-right: 10%;
 			}
-			>>> .uni-input-placeholder {
+			/deep/ .uni-input-placeholder {
 				left: 0!important;
 			}
 		}

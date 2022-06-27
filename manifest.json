@@ -7,7 +7,7 @@
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
-		"softinputMode": "adjustPan",
+        "softinputMode" : "adjustPan",
         "safearea" : {
             "bottom" : {
                 "offset" : "none"
@@ -81,7 +81,12 @@
             "es6" : true,
             "postcss" : true
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : ""
+            }
+        }
     },
     "mp-alipay" : {
         "usingComponents" : true
@@ -93,24 +98,8 @@
         "usingComponents" : true
     },
     "h5" : {
-        "template" : "template.h5.html",
         "router" : {
-            "mode" : "history"
-        },
-        "devServer" : {
-            "port" : 80,
-            "disableHostCheck" : true,
-            "proxy" : {
-                "/api" : {
-                    "target" : "https://fanyi-api.baidu.com/api/trans/vip/translate",
-                    "changeOrigin" : true,
-                    "secure" : false,
-                    "pathRewrite" : {
-                        "^/api" : ""
-                    }
-                }
-            },
-            "https" : true
+            "mode" : "hash"
         }
     }
 }

@@ -7,13 +7,26 @@
 					<ul class="line__number__wrapper">
 						<li class="line__item" v-for="item in lineNumber" :key="item">{{item}}</li>
 					</ul>
-					<editor id="editor" class="ql-container" @click="clickEditor"  placeholder="调试请用log()代替console.log()" @ready="onEditorReady" @input="onInput"></editor>
+					<editor 
+						id="editor" 
+						class="ql-container" 
+						placeholder="调试请用log()代替console.log()" 
+						@ready="onEditorReady" 
+						@focus="onFocus"
+						@input="onInput"
+						@click="clickEditor"
+					></editor>
 				</div>
 			</scroll-view>
 		</div>
 
 		<footer :style="{bottom: KeyboardHeight}">
-			<button @click="handleClick">click</button>
+			<!-- <button @click="handleClick">click</button> -->
+			<!-- <image class="action__btn" @click="confirm" src="/static/imgs/implement.svg" ></image> -->
+			<ul class="shortcuts__wrapper" v-if="showShortcuts" >
+				<li class="shortcut" v-for="item in shortcuts" :key="item.label" @click="setShortcut(item)">{{item.label}}</li>
+				<li class="shortcut" style="opacity: 0;pointer-events: none;" v-for="item in (7 - shortcuts.length % 7)"></li>
+			</ul>
 		</footer>
 
 		<!-- <div class="action__wrapper">
@@ -99,16 +112,15 @@
 
 		mounted() {
 			uni.onKeyboardHeightChange(res => {
+				if (res.height <= 0) {
+					this.showShortcuts = false
+				}
 				this.KeyboardHeight = res.height + 'px'
-				console.log(res)
 				this.inputHeight = `calc(100% - ${res.height + 'px'})`
 				// #ifdef APP-PLUS
 				this.inputHeight = `calc(100vh - ${res.height + 'px'})`
 				// #endif
 			})
-			
-			uni.vibrate()
-			
 		},
 
 		computed: {
@@ -293,43 +305,6 @@
 			}
 		}
 
-		/* 代码输入框  */
-		.code__input {
-			width: 100%;
-			padding-left: 10rpx;
-			height: 100%;
-			line-height: 50rpx;
-			border: none;
-			letter-spacing: 1rpx;
-		}
-		.code__input::-webkit-scrollbar-track-piece {
-			background-color: yellow!important;
-			border-left: 1rpx solid pink!important;
-		}
-		
-		.code__input::-webkit-scrollbar {
-			width: 5rpx;
-			height: 13rpx;
-			-webkit-border-radius: 5rpx;
-			-moz-border-radius: 5rpx;
-			border-radius: 5rpx;
-		}
-		
-		.code__input::-webkit-scrollbar-thumb {
-			background-color: red!important;
-			background-clip: padding-box;
-			-webkit-border-radius: 5rpx;
-			-moz-border-radius: 5rpx;
-			border-radius: 5rpx;
-			min-height: 28rpx;
-		}
-		
-		.code__input::-webkit-scrollbar-thumb:hover {
-			background-color: blue!important;
-			-webkit-border-radius: 5rpx;
-			-moz-border-radius: 5rpx;
-			border-radius: 5rpx;
-		}
 
 		/* 操作按钮区域  */
 		.action__wrapper {
@@ -345,63 +320,49 @@
 			}
 		}
 
+		// footer {
+		// 	position: fixed;
+		// 	width: 100%;
+		// 	height: 100rpx;
+		// 	background: #fff;
+		// }
+
 		footer {
 			position: fixed;
+			bottom: 0;
 			width: 100%;
-			height: 100rpx;
-			background: #fff;
-		}
+			height: 200rpx;
+			// height: auto;
+			// background: #fff;
+			/* 执行结果区域 */
+			.shortcuts__wrapper {
+				display: flex;
+				align-content: flex-start;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				position: relative;
+				padding: 20rpx 30rpx 0;
+				box-sizing: border-box;
 
-
-		/* 执行结果区域 */
-		.result__wrapper {
-			position: relative;
-			padding-top: 20rpx;
-
-			.result,
-			.footer {
-				padding: 10rpx;
-				width: calc(100% - 20rpx);
-				height: 380rpx;
-				overflow-y: auto;
-				border: 1rpx solid rgba(0, 0, 0, 0.5);
-				border-radius: 10rpx;
-				background: #f8f8f8;
-				letter-spacing: 1rpx;
-			}
-
-			.footer {
-				position: absolute;
-				top: 20rpx;
-				left: 0;
-				bottom: 0;
-				z-index: 1;
-				overflow: hidden;
-
-				.footer__shortcuts {
-					height: 100%;
+				.shortcut {
 					display: flex;
-					align-content: flex-start;
-					justify-content: space-between;
-					flex-wrap: wrap;
-
-					.shortcut {
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						margin-left: 6rpx;
-						margin-right: 6rpx;
-						margin-bottom: 20rpx;
-						width: 3em;
-						height: 80rpx;
-						text-align: center;
-						background: var(--primary-color);
-						border-radius: 10rpx;
-						color: #fff;
-					}
+					align-items: center;
+					justify-content: center;
+					margin-left: 6rpx;
+					margin-right: 6rpx;
+					margin-bottom: 20rpx;
+					width: 3em;
+					height: 80rpx;
+					text-align: center;
+					background-color: var(--primary-color);
+					border-radius: 10rpx;
+					color: #fff;
 				}
 			}
 		}
+
+
+		
 
 	}
 </style>
