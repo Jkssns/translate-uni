@@ -3,10 +3,10 @@
 		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
-		{
-		  "path": "pages/humens/index",
-		  "style": {}
-		}
+		// {
+		//   "path": "pages/humens/index",
+		//   "style": {}
+		// },
 		// {
 		//   "path": "pages/translate/index",
 		//   "style": {}  
@@ -19,7 +19,31 @@
 		//   "path": "pages/history/index",
 		//   "style": {}
 		// }
-	],
+	{
+    "path": "pages/humens_list/add",
+    "style": {
+        "navigationBarTitleText": "新增"
+    }
+}
+,{
+    "path": "pages/humens_list/edit",
+    "style": {
+        "navigationBarTitleText": "编辑"
+    }
+}
+,{
+    "path": "pages/humens_list/list",
+    "style": {
+        "navigationBarTitleText": "列表"
+    }
+}
+,{
+    "path": "pages/humens_list/detail",
+    "style": {
+        "navigationBarTitleText": "详情"
+    }
+}
+],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "test", 
