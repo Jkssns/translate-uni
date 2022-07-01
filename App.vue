@@ -19,7 +19,6 @@
 </script>
 
 <style lang="scss">
-	@import "uview-ui/index.scss";
 	@import "./common/font/iconfont.css";
 	ul,ol {
 		margin: 0;

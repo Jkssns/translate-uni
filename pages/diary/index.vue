@@ -8,7 +8,7 @@
 	export default {
 		data() {
 			return {
-				description: '人员列表'
+				description: '群日记'
 			}
 		},
 		methods: {
@@ -17,6 +17,5 @@
 	}
 </script>
 
-<style scoped lang="scss">
-	
+<style>
 </style>

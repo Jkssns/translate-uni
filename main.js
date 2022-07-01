@@ -2,10 +2,6 @@ import Vue from 'vue'
 import App from './App'
 import store from './store/index.js'
 
-/* 插件 */
-import uView from 'uview-ui'
-Vue.use(uView)
-
 import i18n from '@/i18n/index.js'
 Vue.use(i18n)
 

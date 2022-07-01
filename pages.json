@@ -3,10 +3,11 @@
 		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [
-		// {
-		//   "path": "pages/humens/index",
-		//   "style": {}
-		// },
+		{
+		  "path": "pages/humens/index",
+		  "style": {}
+		}
+		// ,
 		// {
 		//   "path": "pages/translate/index",
 		//   "style": {}  
@@ -19,55 +20,49 @@
 		//   "path": "pages/history/index",
 		//   "style": {}
 		// }
-	{
-    "path": "pages/humens_list/add",
-    "style": {
-        "navigationBarTitleText": "新增"
-    }
-}
-,{
-    "path": "pages/humens_list/edit",
-    "style": {
-        "navigationBarTitleText": "编辑"
-    }
-}
-,{
-    "path": "pages/humens_list/list",
-    "style": {
-        "navigationBarTitleText": "列表"
-    }
-}
-,{
-    "path": "pages/humens_list/detail",
-    "style": {
-        "navigationBarTitleText": "详情"
-    }
-}
 ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "test", 
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+	    "color": "#909399",
+	    "selectedColor": "#19be6b",
+	    "borderStyle": "black",
+	    "backgroundColor": "#ffffff",
+		"list": [
+			{ 
+				"pagePath": "pages/user-info/index",
+				"iconPath": "static/imgs/translate.png",
+				"selectedIconPath": "static/imgs/translate_selected.png",
+				"text": "我的"
+			},
+			{ 
+				"pagePath": "pages/humens/index",
+				"iconPath": "static/imgs/history.png",
+				"selectedIconPath": "static/imgs/history_selected.png",
+				"text": "病友"
+			},
+			{
+				"pagePath": "pages/diary/index",
+				"iconPath": "static/imgs/history.png",
+				"selectedIconPath": "static/imgs/history_selected.png",
+				"text": "群日记"
+			},
+			{
+				"pagePath": "pages/translate/index",
+				"iconPath": "static/imgs/translate.png",
+				"selectedIconPath": "static/imgs/translate_selected.png",
+				"text": "翻译"
+			},
+			{
+				"pagePath": "pages/code/index",
+				"iconPath": "static/imgs/history.png",
+				"selectedIconPath": "static/imgs/history_selected.png",
+				"text": "JS"
+			}
+		]
 	}
-	// "tabBar": {
-	//     "color": "#909399",
-	//     "selectedColor": "#19be6b",
-	//     "borderStyle": "black",
-	//     "backgroundColor": "#ffffff",
-	// 	"list": [
-	// 	  { 
-	// 	    "pagePath": "pages/translate/index",
-	// 		"iconPath": "static/imgs/translate.png",
-	// 		"selectedIconPath": "static/imgs/translate_selected.png",
-	// 	    "text": "翻译"
-	// 	  },
-	// 	  { 
-	// 	    "pagePath": "pages/history/index",
-	// 		"iconPath": "static/imgs/history.png",
-	// 		"selectedIconPath": "static/imgs/history_selected.png",
-	// 	    "text": "历史记录"
-	// 	  }
-	// 	]
-	// },
 }

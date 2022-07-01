@@ -8,7 +8,7 @@
 	export default {
 		data() {
 			return {
-				description: '人员列表'
+				description: '用户信息'
 			}
 		},
 		methods: {
