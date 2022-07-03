@@ -13,6 +13,7 @@ const $t = (key, message) => {
 			}
 			console.log(temp, 'temp')
 		}
+		console.log(temp, 'temp')
 	
 		return temp
 	}

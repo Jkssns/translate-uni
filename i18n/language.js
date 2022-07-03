@@ -1,5 +1,8 @@
 const message = {
 	zh: {
+		message: {
+			
+		},
 		tabbar: {
 			'请输入': '请输入',
 		},
@@ -12,6 +15,9 @@ const message = {
 		},
 	},
 	en: {
+		message: {
+			
+		},
 		tabbar: {
 			'请输入': 'Please enter',
 		},

@@ -1,25 +1,32 @@
 {
 	"easycom": {
-		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+		"^u-(.*)": "@/components/u-$1/u-$1.vue"
 	},
 	"pages": [
 		{
 		  "path": "pages/humens/index",
 		  "style": {}
+		},
+		{
+		  "path": "pages/translate/index",
+		  "style": {}  
+		},
+		{
+			"path": "pages/code/index",
+			"style": {}
+		},
+		{
+			"path": "pages/diary/index",
+			"style": {}
+		},
+		{
+			"path": "pages/user-info/index",
+			"style": {}
+		},
+		{
+			"path": "pages/user-info/user-edit",
+			"style": {}
 		}
-		// ,
-		// {
-		//   "path": "pages/translate/index",
-		//   "style": {}  
-		// },
-		// {
-		// 	"path": "pages/code/index",
-		// 	"style": {}
-		// },
-		// {
-		//   "path": "pages/history/index",
-		//   "style": {}
-		// }
 ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
