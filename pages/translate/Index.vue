@@ -318,17 +318,17 @@
 			.t__saohua__wrapper {
 				margin-top: -10rpx;
 				padding-top: 10rpx;
-				border-top: 1px solid var(--themeColor);
+				border-top: 1px solid $uni-color-primary;
 				.t__saohua__item {
 					padding: 5rpx 0;
 					width: 100%;
-					border-bottom: 1px dashed var(--secondFontColor);
+					border-bottom: 1px dashed $uni-text-color-tip;
 					.t__saohua__text {
 						display: block;
 						width: 100%;
 						min-width: 0;
 						min-height: 50rpx;
-						color: var(--secondFontColor);
+						color: $uni-text-color-tip;
 					}
 					.t__saohua__action {
 						display: flex;
@@ -346,7 +346,7 @@
 		.t__footer {
 			margin-top: $gap;
 			height: 100rpx;
-			color: var(--fontColor);
+			color: $uni-text-theme;
 			text-align: center;
 		}
 	}

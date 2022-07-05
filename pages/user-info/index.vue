@@ -39,7 +39,7 @@
 				<text class="label_title"></text>
 				<image class="label_icon_arrow" src="/static/imgs/common/back-right.svg" mode=""></image>
 				<div class="label_textarea">
-					{{userInfo.introduce || '12125dfgfgfgsdfhjasdfhlasdfahsjdflashdfjasldfahsdflasdfjashdlfaksdfl'}}
+					{{userInfo.introduce}}
 				</div>
 			</view>
 			<!-- <view class="user_detail_item" @click="routerTo(userInfo.email ? 'unBindEmail' : 'bindEmail')">
@@ -182,7 +182,7 @@
 }
 .user_detail_info {
 	// width: 100%;
-	margin: 0 16rpx;
+	margin: 0 16rpx 60rpx;
 	padding: 0 60rpx;
 	box-sizing: border-box;
 	position: relative;
@@ -191,6 +191,7 @@
 	background: #FFFFFF;
 	box-shadow: 0rpx 4rpx 20rpx rgba(0, 0, 0, 0.05);
 	border-radius: 24rpx;
+	overflow-y: auto;
 }
 .user_detail_avatar {
 	position: relative;
@@ -246,12 +247,14 @@
 	line-height: 160rpx;
 	border-bottom: 1px solid #E7E7E7;
 	&:last-child {
+		height: auto;
+		padding-bottom: 30rpx;
 		border-bottom: none;
-		.label_textarea {
-			width: 100%;
-			height: 150rpx;
-			word-break: break-all;
-		}
+	}
+	.label_textarea {
+		width: 100%;
+		line-height: normal;
+		word-break: break-all;
 	}
 }
 .label_icon {

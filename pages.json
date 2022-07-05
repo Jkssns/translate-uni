@@ -35,39 +35,39 @@
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
-	    "color": "#909399",
-	    "selectedColor": "#19be6b",
+	    "color": "#3a3a3a",
+	    "selectedColor": "#409eff",
 	    "borderStyle": "black",
 	    "backgroundColor": "#ffffff",
 		"list": [
 			{ 
 				"pagePath": "pages/user-info/index",
-				"iconPath": "static/imgs/translate.png",
-				"selectedIconPath": "static/imgs/translate_selected.png",
+				"iconPath": "static/imgs/tabbar/user.jpg",
+				"selectedIconPath": "static/imgs/tabbar/user_selected.jpg",
 				"text": "我的"
 			},
 			{ 
 				"pagePath": "pages/humens/index",
-				"iconPath": "static/imgs/history.png",
-				"selectedIconPath": "static/imgs/history_selected.png",
+				"iconPath": "static/imgs/tabbar/user_list.jpg",
+				"selectedIconPath": "static/imgs/tabbar/user_list_selected.jpg",
 				"text": "病友"
 			},
 			{
 				"pagePath": "pages/diary/index",
-				"iconPath": "static/imgs/history.png",
-				"selectedIconPath": "static/imgs/history_selected.png",
+				"iconPath": "static/imgs/tabbar/diary.jpg",
+				"selectedIconPath": "static/imgs/tabbar/diary_selected.jpg",
 				"text": "群日记"
 			},
 			{
 				"pagePath": "pages/translate/index",
-				"iconPath": "static/imgs/translate.png",
-				"selectedIconPath": "static/imgs/translate_selected.png",
+				"iconPath": "static/imgs/tabbar/translate.jpg",
+				"selectedIconPath": "static/imgs/tabbar/translate_selected.jpg",
 				"text": "翻译"
 			},
 			{
 				"pagePath": "pages/code/index",
-				"iconPath": "static/imgs/history.png",
-				"selectedIconPath": "static/imgs/history_selected.png",
+				"iconPath": "static/imgs/tabbar/code.jpg",
+				"selectedIconPath": "static/imgs/tabbar/code_selected.jpg",
 				"text": "JS"
 			}
 		]

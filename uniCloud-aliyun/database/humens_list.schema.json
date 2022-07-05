@@ -13,6 +13,12 @@
 		},
 		"name": {
 			"bsonType": "string",
+			"required": true,
+			"description": "must be a string and is required"
+		},
+		"introduce": {
+			"bsonType": "string",
+			"required": true,
 			"description": "must be a string and is required"
 		}
 	}

@@ -34,7 +34,7 @@
 		</div>
 
 		<div class="result__wrapper">
-			<p v-if="result" v-html="result" :style="{color: right ? 'var(--primary-color)' : 'red'}" class="result"></p>
+			<p v-if="result" v-html="result" :style="{color: right ? '$uni-color-primary' : 'red'}" class="result"></p>
 			<p v-else class="result" style="color: #808080">执行结果</p>
 			<footer class="footer" v-show="showShortcuts">
 				<ul class="footer__shortcuts">
@@ -315,7 +315,7 @@
 			.btn {
 				margin: 0;
 				border: none;
-				background: var(--primary-color);
+				background: $uni-color-primary;
 				color: #fff;
 			}
 		}
@@ -354,7 +354,7 @@
 					width: 3em;
 					height: 80rpx;
 					text-align: center;
-					background-color: var(--primary-color);
+					background-color: $uni-color-primary;
 					border-radius: 10rpx;
 					color: #fff;
 				}

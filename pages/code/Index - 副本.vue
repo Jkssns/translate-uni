@@ -348,7 +348,7 @@
 				width: 3em;
 				height: 80rpx;
 				text-align: center;
-				background-color: var(--primary-color);
+				background-color: $uni-color-primary;
 				border-radius: 10rpx;
 				color: #fff;
 			}

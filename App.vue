@@ -32,12 +32,4 @@
 		width: 100%;
 		height: 100%;
 	}
-	
-	
-	:root {
-		--primary-color: #19be6b;
-		--fontColor: #19be6b;
-		--secondFontColor: #606266;
-		--themeColor: #19be6b;
-	}
 </style>
