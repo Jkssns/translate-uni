@@ -1,6 +1,7 @@
 <template>
 	<div>
-		{{description}}
+		<input type="text">
+		<button @click="add">add</button>
 	</div>
 </template>
 
@@ -12,7 +13,11 @@
 			}
 		},
 		methods: {
-			
+			async add() {
+				const humens = uniCloud.importObject('humens')
+				const res = await humens.add('asdf', 'content demo')
+				console.log(res, 'res')
+			}
 		}
 	}
 </script>
