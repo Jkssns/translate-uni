@@ -20,6 +20,11 @@
 			"bsonType": "string",
 			"required": true,
 			"description": "must be a string and is required"
+		},
+		"nativePlace": {
+			"bsonType": "string",
+			"required": false,
+			"description": "must be a string and is required"
 		}
 	}
 }

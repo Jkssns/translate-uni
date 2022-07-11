@@ -1,8 +1,5 @@
 // 开发文档: https://uniapp.dcloud.net.cn/uniCloud/cloud-obj
 module.exports = {
-<<<<<<< HEAD
-	
-=======
 	add(name, introduce) {
 		name = name.trim()
 		introduce = introduce.trim()
@@ -18,5 +15,4 @@ module.exports = {
 			errMsg: '添加成功'
 		}
 	}
->>>>>>> 2c2964e5a73a983da8924ae71e24fe42fec46428
 }

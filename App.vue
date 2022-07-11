@@ -19,7 +19,6 @@
 </script>
 
 <style lang="scss">
-	@import "./common/font/iconfont.css";
 	ul,ol {
 		margin: 0;
 		padding: 0;
