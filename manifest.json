@@ -101,5 +101,6 @@
         "router" : {
             "mode" : "hash"
         }
-    }
+    },
+    "vueVersion" : "2"
 }

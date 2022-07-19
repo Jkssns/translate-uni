@@ -1,10 +1,17 @@
-const message = {
+export default {
 	zh: {
+		common: {
+			'编辑': '编辑'
+		},
 		message: {
 			
 		},
 		tabbar: {
 			'请输入': '请输入',
+		},
+		humens: {
+			'展开所有自我介绍': '展开所有自我介绍',
+			'收起所有自我介绍': '收起所有自我介绍',
 		},
 		translate: {
 			'翻译': '翻译',
@@ -15,11 +22,18 @@ const message = {
 		},
 	},
 	en: {
+		common: {
+			'编辑': 'Edit'
+		},
 		message: {
 			
 		},
 		tabbar: {
 			'请输入': 'Please enter',
+		},
+		humens: {
+			'展开所有自我介绍': 'Expand All',
+			'收起所有自我介绍': 'Close All',
 		},
 		translate: {
 			'翻译': 'Translation',

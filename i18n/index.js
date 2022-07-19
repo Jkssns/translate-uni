@@ -1,21 +1,32 @@
 import message from './language.js'
 
-const $t = (key, message) => {
+const $t = (key, language = 'zh') => {
 	if (!key) {
 		return ''
 	} else {
-		let temp = message
-		console.log(temp, 'temp')
-		const arr = key.split('.')
-		for (let i in arr) {
-			if (temp[arr[i]]) {
-				temp = temp[arr[i]]
+		console.log(key, 'key')
+		let temp = ''
+		try {
+			let langMsg = message[language]
+			const arr = key.split('.')
+			for (let i=0; i<arr.length; i++) {
+				if (!temp) {
+					if (langMsg[arr[i]]) {
+						temp = langMsg[arr[i]]
+					} else {
+						return key
+					}
+					continue;
+				}
+				if (temp[arr[i]]) {
+					temp = temp[arr[i]]
+				}
 			}
-			console.log(temp, 'temp')
+			
+			return temp
+		} catch {
+			return key
 		}
-		console.log(temp, 'temp')
-	
-		return temp
 	}
 }
 	
@@ -25,7 +36,7 @@ const install = (Vue) => {
 			if (this.$options.i18n) {
 				Vue.prototype.locale = 'zh'
                 Vue.prototype.$t = (key) => {
-					return $t(key, message[Vue.prototype.locale])
+					return $t(key, Vue.prototype.locale)
 				}
 			}
 		}

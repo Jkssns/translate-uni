@@ -14,17 +14,27 @@
 		"name": {
 			"bsonType": "string",
 			"required": true,
-			"description": "must be a string and is required"
+			"description": "昵称"
 		},
-		"introduce": {
+		"introduction": {
 			"bsonType": "string",
 			"required": true,
-			"description": "must be a string and is required"
+			"description": "自我介绍"
 		},
 		"nativePlace": {
 			"bsonType": "string",
 			"required": false,
-			"description": "must be a string and is required"
+			"description": "籍贯"
+		},
+		"sex": {
+			"bsonType": "number",
+			"required": false,
+			"description": "性别"
+		},
+		"openId": {
+			"bsonType": "string",
+			"required": false,
+			"description": "微信唯一id"
 		}
 	}
 }

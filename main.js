@@ -9,7 +9,10 @@ Vue.use(i18n)
 
 /* 配置 */
 import utils from '@/utils/index.js'
+import server from '@/server/index.js'
+console.log("server::: ", server);
 Vue.prototype.$utils = utils
+Vue.prototype.$server = server
 
 Vue.prototype.toast = (title, duration = 1500, obj) => {
 	uni.showToast({
