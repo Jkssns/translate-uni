@@ -19,15 +19,8 @@
 </script>
 
 <style lang="scss">
-	ul,ol {
-		margin: 0;
-		padding: 0;
-	}
-	li {
-		list-style: none;
-	}
 	/* 每个页面公共css */
-	uni-page-body {
+	page, uni-page-body {
 		width: 100%;
 		height: 100%;
 	}

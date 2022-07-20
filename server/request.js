@@ -1,5 +1,6 @@
 export default function request({
 		url, //	String 	是 		开发者服务器接口地址 	
+		params, // get参数
 		data, // 	Object/String/ArrayBuffer 	否 		请求的参数 	App 3.3.7 以下不支持 ArrayBuffer 类型
 		header, // 	Object 	否 		设置请求的 header，header 中不能设置 Referer。 	App、H5端会自动带上cookie，且H5端不可手动修改
 		method, // 	String 	否 	GET 	有效值详见下方说明 	
@@ -10,6 +11,9 @@ export default function request({
 		withCredentials, // 	Boolean 	否 	false 	跨域请求时是否携带凭证（cookies） 	仅H5支持（HBuilderX 2.6.15+）
 		firstIpv4,
 	}) {
+	if (params && Object.keys(params).length) {
+		url = url + '?' + Object.entries(params).map(item => item.join('=')).join('&')
+	}
 	return new Promise((rel, rej) => {
 		uni.request({
 			url, //	String 	是 		开发者服务器接口地址 	
@@ -23,7 +27,7 @@ export default function request({
 			withCredentials, // 	Boolean 	否 	false 	跨域请求时是否携带凭证（cookies） 	仅H5支持（HBuilderX 2.6.15+）
 			firstIpv4, // 	Boolean 	否 	false 	DNS解析时优先使用ipv4 	仅 App-Android 支持 (HBuilderX 2.8.0+)
 			success(res) {
-				rel(res)
+				rel(res.data)
 			},
 			fail(err) {
 				rej(err)

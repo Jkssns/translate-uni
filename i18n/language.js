@@ -3,6 +3,10 @@ export default {
 		common: {
 			'编辑': '编辑'
 		},
+		login: {
+			'登录': '登录',
+			'点一下': '点一下',
+		},
 		message: {
 			
 		},
@@ -24,6 +28,10 @@ export default {
 	en: {
 		common: {
 			'编辑': 'Edit'
+		},
+		login: {
+			'登录': 'Login',
+			'点一下': 'Tap',
 		},
 		message: {
 			

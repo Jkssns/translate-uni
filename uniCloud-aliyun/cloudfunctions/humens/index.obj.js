@@ -1,18 +1,29 @@
 // 开发文档: https://uniapp.dcloud.net.cn/uniCloud/cloud-obj
-module.exports = {
-	add(name, introduce) {
-		name = name.trim()
-		introduce = introduce.trim()
-		if(!name || !introduce) {
-			return {
-				errCode: 400,
-				errMsg: '名称和自我介绍不可以为空'
-			}
-		}
-		// ...其他逻辑
-		return {
-			errCode: 200,
-			errMsg: '添加成功'
-		}
+const statusMsgObj = {
+	200: '操作成功',
+	400: '参数有误',
+	500: '操作失败，系统错误。',
+}
+const status = (code, data, msg) => {
+	return {
+		code: code,
+		data,
+		msg: msg || statusMsgObj[code],
 	}
+}
+
+module.exports = {
+	async checkOpenid(openid) {
+		console.log(13455)
+		const db = uniCloud.database();
+		const collection = db.collection('humens_list');
+		const res = await collection.where({
+			openid: openid
+		}).get()
+		if (res.data.length) {
+			return status(200, true)
+		} else {
+			return status(200, false)
+		}
+	},
 }

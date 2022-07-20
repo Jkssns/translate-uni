@@ -4,7 +4,6 @@ const $t = (key, language = 'zh') => {
 	if (!key) {
 		return ''
 	} else {
-		console.log(key, 'key')
 		let temp = ''
 		try {
 			let langMsg = message[language]
@@ -20,6 +19,8 @@ const $t = (key, language = 'zh') => {
 				}
 				if (temp[arr[i]]) {
 					temp = temp[arr[i]]
+				} else {
+					return key
 				}
 			}
 			
