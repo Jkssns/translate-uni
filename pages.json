@@ -7,6 +7,10 @@
 	},
 	"pages": [
 		{
+		  "path": "pages/humens/edit",
+		  "style": {}
+		},
+		{
 		  "path": "pages/login/index",
 		  "style": {}
 		},

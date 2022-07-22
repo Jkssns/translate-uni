@@ -1,8 +1,13 @@
 <template>
 	<div class="login_container">
 		<!-- <image class="login_bg" src="/static/imgs/login/boji1.jpeg" alt="" mode="aspectFill" /> -->
-		<div class="login_btn" @tap="getUserInfo">{{$t('login.点一下')}}</div>
+		<uni-button class="login_btn" @tap="getUserInfo">{{$t('login.点一下')}}</uni-button>
 		<uni-popup ref="humenList" type="bottom">
+			<div class="Confirm_Bar">
+				<span class="Cancel_Text">{{$t('common.取消')}}</span>
+				<span class="Bar_Title">{{$t('login.绑定精神病')}}</span>
+				<span class="Confirm_Text">{{$t('common.确定')}}</span>
+			</div>
 			<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" collection="humens_list" :page-size="999999">
 				<view v-if="error">{{error.message}}</view>
 				<view v-else>
@@ -10,13 +15,13 @@
 						<radio-group @change="onRadioChange">
 							<ul class="humens_list">
 								<li 
-									class="humen_item"
+									class="humen_item_wrapper"
 									v-for="(item, index) in getData(data)" 
 									:key="item._id"
 									@tap="item.checked=true"
 								>
-									<label class="radio" >
-										<radio class="humen_item_edit" color="#409eff"></radio>
+									<label class="radio humen_item">
+										<radio class="humen_item_edit" v-if="index > 2" color="#409eff"></radio>
 										<image class="humen_item_avatar" src="https://jkssns.oss-cn-hangzhou.aliyuncs.com/images/user.jpeg" />
 										<div class="humen_basic_info">
 											<span class="humen_name">{{item.name}}</span>
@@ -28,6 +33,7 @@
 								</li>
 							</ul>
 						</radio-group>
+						<div class="add_humen" @click="addHumen">没有？那就新增一个吧&gt;&gt;&gt;</div>
 					</scroll-view>
 				</view>
 			</unicloud-db>
@@ -41,6 +47,7 @@
 			return {
 				description: '登录',
 				openid: '',
+				checkedHumen: '',
 			}
 		},
 		
@@ -50,7 +57,7 @@
 		
 		methods: {
 			getData(data = []) {
-				return data.map(item => {
+				return data.filter(item => !item.openid).map(item => {
 					return {
 						...item,
 						checked: false,
@@ -59,7 +66,7 @@
 			},
 
 			onRadioChange(e) {
-				console.log("e::: ", e);
+				this.checkedHumen = e
 			},
 
 			checkSession() {
@@ -102,18 +109,26 @@
 				humens.checkOpenid('openid').then(res => {
 					if (res.data) {
 						this.goHome()
+					} else {
+						this.getUserInfo()
 					}
 				})
 			},
 
 			getUserInfo() {
-				// uni.getUserProfile({
-				// 	desc: '展示用户信息头像和名称',
-				// 	lang: 'zh_CN',
-				// 	success: (res)=> {
+				uni.getUserProfile({
+					desc: '展示用户信息头像和名称',
+					lang: 'zh_CN',
+					success: (res)=> {
 						this.$refs.humenList.open()
-				// 	}
-				// })
+					}
+				})
+			},
+
+			addHumen() {
+				uni.reLaunch({
+					url: '/pages/humens/edit?openid=' + this.openid
+				})
 			},
 
 			goHome() {
@@ -161,16 +176,12 @@
 			width: 100%;
 			height: 700rpx;
 			background: #f6f6f6;
-			border-radius: 16rpx;
 			overflow: hidden;
 			.humens_list {
-				.humen_item {
+				.humen_item_wrapper {
 					position: relative;
 					width: 690rpx;
 					height: auto;
-					display: flex;
-					align-content: flex-start;
-					flex-wrap: wrap;
 					padding: 20rpx;
 					margin: 30rpx auto 0;
 					background: rgba(255, 255, 255, 0.9);
@@ -179,6 +190,11 @@
 					box-sizing: border-box;
 					overflow: hidden;
 					transition: all 0.3s;
+					.humen_item {
+						display: flex;
+						align-content: flex-start;
+						flex-wrap: wrap;
+					}
 					.humen_item_edit {
 						position: absolute;
 						top: 10rpx;
@@ -196,7 +212,7 @@
 						flex-wrap: wrap;
 						margin-left: 20rpx;
 						.humen_name {
-							font-size: 22rpx;
+							font-size: 32rpx;
 							line-height: 1.5715;
 						}
 						.humen_item_sexIcon {
@@ -228,6 +244,13 @@
 					}
 				}
 			}
+		}
+
+		.add_humen {
+			height: 180rpx;
+			line-height: 80rpx;
+			text-align: center;
+			color: $uni-color-primary;
 		}
 
 

@@ -1,11 +1,15 @@
 export default {
 	zh: {
+		
 		common: {
-			'编辑': '编辑'
+			'编辑': '编辑',
+			'取消': '取消',
+			'确定': '确定',
 		},
 		login: {
 			'登录': '登录',
 			'点一下': '点一下',
+			'绑定精神病': '绑定精神病',
 		},
 		message: {
 			
@@ -16,6 +20,15 @@ export default {
 		humens: {
 			'展开所有自我介绍': '展开所有自我介绍',
 			'收起所有自我介绍': '收起所有自我介绍',
+			'名字': '名字',
+			'请输入名字': '请输入名字',
+			'性别': '性别',
+			'自我介绍': '自我介绍',
+			'请简洁地写个500字': '请简洁地写个500字',
+			'我的缺点': '我的缺点',
+			'写多一点，让泰德有依据地攻击你': '写多一点，让泰德有依据地攻击你',
+			'男': '男',
+			'女': '女',
 		},
 		translate: {
 			'翻译': '翻译',
@@ -27,11 +40,14 @@ export default {
 	},
 	en: {
 		common: {
-			'编辑': 'Edit'
+			'编辑': 'Edit',
+			'取消': 'Cancel',
+			'确定': 'Confirm',
 		},
 		login: {
 			'登录': 'Login',
 			'点一下': 'Tap',
+			'绑定精神病': 'Bind Psychosis',
 		},
 		message: {
 			
@@ -42,6 +58,15 @@ export default {
 		humens: {
 			'展开所有自我介绍': 'Expand All',
 			'收起所有自我介绍': 'Close All',
+			'名字': 'Name',
+			'请输入名字': 'Please input you name',
+			'性别': 'Gender',
+			'自我介绍': 'Introduction',
+			'请简洁地写个500字': 'Please write 500 words succinctly',
+			'我的缺点': 'My Defect',
+			'写多一点，让泰德有依据地攻击你': 'Write more so that Ted can attack you based on facts',
+			'男': 'Boy',
+			'女': 'Girl',
 		},
 		translate: {
 			'翻译': 'Translation',
