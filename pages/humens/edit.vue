@@ -27,10 +27,6 @@
 				<textarea class="form_item_textarea" :placeholder="$t('humens.写多一点，让泰德有依据地攻击你')" maxlength="-1" rows="10" auto-height v-model="form.defect"></textarea>
 			</div>
 		</label>
-
-		<div class="">
-
-		</div>
 	</div>
 </template>
 
@@ -53,6 +49,11 @@
 			this.isEdit = options.isEdit === true
 			
 		},
+		onShow() {
+			setTimeout(() => {
+				console.log(ggg, 'ggg')
+			}, 5000)
+		},
 
 		created() {
 			
@@ -68,6 +69,7 @@
 
 	}
 </script>
+
 
 <style lang="scss" scoped>
 	.humen_edit_wrapper {

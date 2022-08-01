@@ -56,6 +56,10 @@
 		onReachBottom() { //滚动到底翻页
 			this.$refs.udb.loadMore()
 		},
+		
+		onShow() {
+				console.log(ggg, 'ggg')
+		},
 		methods: {
 			onDataLoad() {
 				this.$nextTick(() => {
