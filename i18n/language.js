@@ -1,18 +1,17 @@
 export default {
 	zh: {
-		
 		common: {
 			'编辑': '编辑',
 			'取消': '取消',
 			'确定': '确定',
 		},
+		message: {
+			'绑定成功': '绑定成功',
+		},
 		login: {
 			'登录': '登录',
 			'点一下': '点一下',
 			'绑定精神病': '绑定精神病',
-		},
-		message: {
-			
 		},
 		tabbar: {
 			'请输入': '请输入',
@@ -44,13 +43,13 @@ export default {
 			'取消': 'Cancel',
 			'确定': 'Confirm',
 		},
+		message: {
+			'绑定成功': 'Binding successful',
+		},
 		login: {
 			'登录': 'Login',
 			'点一下': 'Tap',
 			'绑定精神病': 'Bind Psychosis',
-		},
-		message: {
-			
 		},
 		tabbar: {
 			'请输入': 'Please enter',

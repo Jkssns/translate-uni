@@ -2,7 +2,7 @@
 	<div class="humens_list_container">
 		<!-- <button @click="expendAll">{{expendAllItem ? $t('humens.收起所有自我介绍') : $t('humens.展开所有自我介绍')}}</button> -->
 		<!-- <button @click="remove">remove</button> -->
-		<button @click="add">add</button>
+		<!-- <button @click="add">add</button> -->
 		<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" collection="humens_list" :page-size="10" @load="onDataLoad">
 			<view v-if="error">{{error.message}}</view>
 			<view v-else>
@@ -14,9 +14,9 @@
 							:style="{'--height': item.introductionHeight + 'px'}" 
 							v-for="(item, index) in data" 
 							:key="item._id"
-							@tap="openMore(item)"
+							@tap="openMore(item, index)"
 						>
-							<span class="humen_item_edit" @tap.stop="toEdit(item)">{{$t('common.编辑')}}</span>
+							<span class="humen_item_edit" v-if="item.openid === currentUserOpenId" @tap.stop="toEdit(item)">{{$t('common.编辑')}}</span>
 							<image class="humen_item_avatar" src="https://jkssns.oss-cn-hangzhou.aliyuncs.com/images/user.jpeg" />
 							<div class="humen_basic_info">
 								<span class="humen_name">{{item.name}}</span>
@@ -56,10 +56,14 @@
 		onReachBottom() { //滚动到底翻页
 			this.$refs.udb.loadMore()
 		},
-		
-		onShow() {
-				console.log(ggg, 'ggg')
+
+		computed: {
+			currentUserOpenId() {
+				let openid = uni.getStorageSync(this.$const.USER_OPENID)
+				return openid || ''
+			}
 		},
+		
 		methods: {
 			onDataLoad() {
 				this.$nextTick(() => {
@@ -69,7 +73,7 @@
 							this.$refs.udb.dataList = this.$refs.udb.dataList.map((item, index) => {
 								return {
 									...item,
-									open: this.expendAllItem,
+									open: false,
 									introductionHeight: data[index].height
 								}
 							})
@@ -84,7 +88,7 @@
 			
 			async add() {
 				const db = uniCloud.database();
-				for (let item of humens) {d
+				for (let item of humens) {
 					delete item.id
 					await db.collection('humens_list').add(item).then(res => {
 						// console.log(res, 'res')
@@ -130,8 +134,17 @@
 			},
 
 			/* 打开 */
-			openMore(item) {
-				item.open = !item.open
+			openMore(item, index) {
+				this.$refs.udb.dataList[index].open = !item.open
+				// this.$set(this.$refs.udb.dataList, 'item', item)
+				// const db = uniCloud.database();
+				// db.collection('humens_list').update({
+				// 	open: false,
+				// }).then(res => {
+				// })
+				// console.log("item.open::: ", item.open);
+				// item.open = !item.open
+				// console.log("item.open::: ", item);
 			}
 		}
 	}

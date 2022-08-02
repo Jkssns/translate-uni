@@ -4,9 +4,9 @@
 		<uni-button class="login_btn" @tap="getUserInfo">{{$t('login.点一下')}}</uni-button>
 		<uni-popup ref="humenList" type="bottom">
 			<div class="Confirm_Bar">
-				<span class="Cancel_Text">{{$t('common.取消')}}</span>
+				<span class="Cancel_Text" @tap="cancel">{{$t('common.取消')}}</span>
 				<span class="Bar_Title">{{$t('login.绑定精神病')}}</span>
-				<span class="Confirm_Text">{{$t('common.确定')}}</span>
+				<span class="Confirm_Text" @tap="confirm">{{$t('common.确定')}}</span>
 			</div>
 			<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" collection="humens_list" :page-size="999999">
 				<view v-if="error">{{error.message}}</view>
@@ -21,7 +21,7 @@
 									@tap="item.checked=true"
 								>
 									<label class="radio humen_item">
-										<radio class="humen_item_edit" v-if="index > 2" color="#409eff"></radio>
+										<radio class="humen_item_edit" v-if="index > 2" color="#409eff" :value="item._id"></radio>
 										<image class="humen_item_avatar" src="https://jkssns.oss-cn-hangzhou.aliyuncs.com/images/user.jpeg" />
 										<div class="humen_basic_info">
 											<span class="humen_name">{{item.name}}</span>
@@ -47,7 +47,7 @@
 			return {
 				description: '登录',
 				openid: '',
-				checkedHumen: '',
+				checkedHumenId: '',
 			}
 		},
 		
@@ -66,7 +66,7 @@
 			},
 
 			onRadioChange(e) {
-				this.checkedHumen = e
+				this.checkedHumenId = e.detail.value
 			},
 
 			checkSession() {
@@ -97,16 +97,19 @@
 						this.$server.getOpenId(params).then(res => {
 							uni.setStorageSync(this.$const.USER_OPENID, res.openid)
 							this.openid = res.openid
-							this.checkUser(res.openid)
+							this.checkUser()
 						})
 					}
 				});
 			},
 
 			/* 检查用户是否绑定过小程序 */
-			checkUser(openid) {
+			checkUser() {
 				const humens = uniCloud.importObject('humens')
-				humens.checkOpenid('openid').then(res => {
+				humens.checkOpenid(this.openid).then(res => {
+					uni.showToast({
+						title: res.data + '1',
+					})
 					if (res.data) {
 						this.goHome()
 					} else {
@@ -119,7 +122,7 @@
 				uni.getUserProfile({
 					desc: '展示用户信息头像和名称',
 					lang: 'zh_CN',
-					success: (res)=> {
+					success: (res) => {
 						this.$refs.humenList.open()
 					}
 				})
@@ -134,6 +137,29 @@
 			goHome() {
 				uni.reLaunch({
 					url: '/pages/humens/index'
+				})
+			},
+			
+			cancel() {
+				this.$refs.humenList.close()
+			},
+			
+			confirm() {
+				const db = uniCloud.database();
+				
+				db.collection('humens_list').where({
+					_id: this.checkedHumenId,
+				}).update({
+					openid: this.openid,
+				}).then(res => {
+					uni.showToast({
+						title: this.$t('common.绑定成功'),
+					})
+					setTimeout(() => {
+						uni.reLaunch({
+							url: '/pages/humens/index'
+						})
+					}, 500)
 				})
 			}
 

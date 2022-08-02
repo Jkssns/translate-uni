@@ -7,7 +7,7 @@
 	},
 	"pages": [
 		{
-		  "path": "pages/humens/edit",
+		  "path": "pages/humens/index",
 		  "style": {}
 		},
 		{
@@ -15,7 +15,7 @@
 		  "style": {}
 		},
 		{
-		  "path": "pages/humens/index",
+		  "path": "pages/humens/edit",
 		  "style": {}
 		}
 		// {

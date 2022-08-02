@@ -31,7 +31,12 @@
 			"required": false,
 			"description": "性别"
 		},
-		"openId": {
+		"open": {
+			"bsonType": "bool",
+			"required": false,
+			"description": "展开状态"
+		},
+		"openid": {
 			"bsonType": "string",
 			"required": false,
 			"description": "微信唯一id"

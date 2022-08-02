@@ -47,12 +47,10 @@
 
 		onLoad(options) {
 			this.isEdit = options.isEdit === true
-			
 		},
+		
 		onShow() {
-			setTimeout(() => {
-				console.log(ggg, 'ggg')
-			}, 5000)
+			
 		},
 
 		created() {
@@ -73,6 +71,7 @@
 
 <style lang="scss" scoped>
 	.humen_edit_wrapper {
+		display: inline-block;
 		width: 100%;
 		height: 100%;
 		padding: 0 50rpx;

@@ -14,9 +14,11 @@ const status = (code, data, msg) => {
 
 module.exports = {
 	async checkOpenid(openid) {
-		console.log(13455)
 		const db = uniCloud.database();
 		const collection = db.collection('humens_list');
+		if (!openid) {
+			return status(200, false)
+		}
 		const res = await collection.where({
 			openid: openid
 		}).get()
