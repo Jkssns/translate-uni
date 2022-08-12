@@ -40,6 +40,11 @@
 			"bsonType": "string",
 			"required": false,
 			"description": "微信唯一id"
+		},
+		"defect": {
+			"bsonType": "string",
+			"required": false,
+			"description": "个人缺点"
 		}
 	}
 }

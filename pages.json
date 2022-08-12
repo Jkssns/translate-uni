@@ -7,17 +7,23 @@
 	},
 	"pages": [
 		{
-		  "path": "pages/humens/index",
-		  "style": {}
+			"path": "pages/diary/index",
+			"style": {}
+		  },
+		{
+			"path": "pages/humens/index",
+			"style": {}
+		  },
+		{
+			"path": "pages/humens/edit",
+			"style": {}
 		},
 		{
 		  "path": "pages/login/index",
 		  "style": {}
-		},
-		{
-		  "path": "pages/humens/edit",
-		  "style": {}
 		}
+
+	
 		// {
 		//   "path": "pages/translate/index",
 		//   "style": {}  

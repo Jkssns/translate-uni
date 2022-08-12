@@ -123,6 +123,9 @@
 			/* 去编辑页面 */
 			toEdit(item) {
 				console.log(item, 'item');
+				uni.navigateTo({
+					url: '/pages/humens/edit?_id=' + item._id
+				})
 			},
 			
 			/* 打开/关闭全部自我介绍 */
@@ -197,7 +200,7 @@
 					flex-wrap: wrap;
 					margin-left: 20rpx;
 					.humen_name {
-						font-size: 22rpx;
+						font-size: 30rpx;
 						line-height: 1.5715;
 					}
 					.humen_item_sexIcon {
