@@ -123,6 +123,7 @@
 					desc: '展示用户信息头像和名称',
 					lang: 'zh_CN',
 					success: (res) => {
+						console.log("res::: ", res);
 						this.$refs.humenList.open()
 					}
 				})

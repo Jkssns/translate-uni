@@ -73,10 +73,10 @@
 		methods: {
 			async getHumenDetail(_id) {
 				const db = uniCloud.database();
-				const { result } = await db.collection('humens_list').where({
-					_id: this._id,
-				}).get({ getOne: true, })
-
+				const { result } = await db.collection('humens_list').doc(
+					this._id
+				).get({ getOne: true, })
+				
 				if (result && result.data) {
 					this.form = result.data
 				}

@@ -1,9 +1,9 @@
 <template>
-	<uni-index
+	<div
 		header-bg="https://tsp-pub.oss-cn-beijing.aliyuncs.com/wechat/user/user_header.png"
 		bg-color="#F5F4F4"
 	>
-		<uni-header title="个人信息" class="header" background="transparent"></uni-header>
+		<!-- <uni-header title="个人信息" class="header" background="transparent"></uni-header> -->
 		<view class="user_detail_avatar" >
 			<div class="user_avatar_wrapper" @click="open('avatar')">
 				<image class="user_avatar" :src="userInfo.avatar || defSrc" mode="widthFix"></image>
@@ -55,7 +55,7 @@
 		<uni-date-picker ref="birthday" :datestring="userInfo.birthday" @change="onBirthdayChange"></uni-date-picker>
 		<!-- 编辑头像 -->
 		<edit-avatar ref="avatar" @avatarUrl="getAvatarUrl" fromType="userEdit"></edit-avatar>
-	</uni-index>
+	</div>
 </template>
 
 <script>

@@ -3,7 +3,7 @@
 		<!-- <button @click="expendAll">{{expendAllItem ? $t('humens.收起所有自我介绍') : $t('humens.展开所有自我介绍')}}</button> -->
 		<!-- <button @click="remove">remove</button> -->
 		<!-- <button @click="add">add</button> -->
-		<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" collection="humens_list" :page-size="10" @load="onDataLoad">
+		<!-- <unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" collection="humens_list" :page-size="10" @load="onDataLoad">
 			<view v-if="error">{{error.message}}</view>
 			<view v-else>
 				<scroll-view scroll-y="true" class="humens_list_wrapper">
@@ -29,7 +29,7 @@
 					</ul>
 				</scroll-view>
 			</view>
-		</unicloud-db>
+		</unicloud-db> -->
 		<!-- <button @click="add">add</button>
 		<button @click="update">update</button>
 		<button @click="get">get</button> -->
