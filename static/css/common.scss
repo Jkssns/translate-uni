@@ -22,3 +22,15 @@
 		color: $uni-color-primary;
 	}
 }
+
+/* 底部按钮 */
+.Bottom_Btn {
+	width: 690rpx;
+	height: 80rpx;
+	line-height: 80rpx;
+	margin: 0 auto;
+	color: #fff;
+	font-size: 32rpx;
+	background-color: $uni-color-primary;
+	border: none;
+}

@@ -4,6 +4,7 @@ export default {
 			'编辑': '编辑',
 			'取消': '取消',
 			'确定': '确定',
+			'请输入日记': '请输入日记',
 		},
 		message: {
 			'绑定成功': '绑定成功',
@@ -42,6 +43,7 @@ export default {
 			'编辑': 'Edit',
 			'取消': 'Cancel',
 			'确定': 'Confirm',
+			'请输入日记': 'Please enter Journal',
 		},
 		message: {
 			'绑定成功': 'Binding successful',

@@ -432,7 +432,7 @@
 		margin-top:4upx;
 		width: 10upx;
 		height: 10upx;
-		background: #c6c6c6;
+		background: $uni-color-primary;
 		border-radius: 10upx;
 	}
 }

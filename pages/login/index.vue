@@ -1,8 +1,8 @@
 <template>
 	<div class="login_container">
-		<!-- <image class="login_bg" src="/static/imgs/login/boji1.jpeg" alt="" mode="aspectFill" /> -->
-		<uni-button class="login_btn" @tap="getUserInfo">{{$t('login.点一下')}}</uni-button>
-		<uni-popup ref="humenList" type="bottom">
+		<image class="login_bg" src="/static/imgs/login/boji1.jpeg" alt="" mode="aspectFill" />
+		<uni-button class="login_btn" @tap="getUserInfo" v-if="showBtn">{{$t('login.点一下')}}</uni-button>
+		<!-- <uni-popup ref="humenList" type="bottom">
 			<div class="Confirm_Bar">
 				<span class="Cancel_Text" @tap="cancel">{{$t('common.取消')}}</span>
 				<span class="Bar_Title">{{$t('login.绑定精神病')}}</span>
@@ -37,7 +37,7 @@
 					</scroll-view>
 				</view>
 			</unicloud-db>
-		</uni-popup>
+		</uni-popup> -->
 	</div>
 </template>
 
@@ -48,43 +48,79 @@
 				description: '登录',
 				openid: '',
 				checkedHumenId: '',
+				showBtn: false,
 			}
 		},
 		
 		onReady() {
-			this.checkSession()
+			// this.checkSession()
+			this.loginFn()
 		},
 		
 		methods: {
-			getData(data = []) {
-				return data.filter(item => !item.openid).map(item => {
-					return {
-						...item,
-						checked: false,
-					}
-				})
-			},
+			// getData(data = []) {
+			// 	return data.filter(item => !item.openid).map(item => {
+			// 		return {
+			// 			...item,
+			// 			checked: false,
+			// 		}
+			// 	})
+			// },
 
-			onRadioChange(e) {
-				this.checkedHumenId = e.detail.value
-			},
+			// onRadioChange(e) {
+			// 	this.checkedHumenId = e.detail.value
+			// },
 
-			checkSession() {
-				uni.checkSession({
-					success: () => {
-						// uni.switchTab({
-						// 	url: '/pages/humens/index'
-						// })
-						// this.goHome()
-						this.login()
-					},
-					fail: () => {
-						this.login()
-					}
-				})
-			},
+			// checkSession() {
+			// 	uni.checkSession({
+			// 		success: () => {
+			// 			// uni.switchTab({
+			// 			// 	url: '/pages/humens/index'
+			// 			// })
+			// 			// this.goHome()
+			// 			this.login()
+			// 		},
+			// 		fail: () => {
+			// 			this.login()
+			// 		}
+			// 	})
+			// },
 
-			login() {
+			// login() {
+			// 	uni.login({
+			// 		provider: 'weixin',
+			// 		success: (loginRes) => {
+			// 			const params = {
+			// 				appid: 'wx3ebc9d7e8fd3d444',
+			// 				secret: 'd809ad3fa67f8b9146aa4934f99c93ba',
+			// 				js_code: loginRes.code,
+			// 				grant_type: 'authorization_code',
+			// 			}
+			// 			this.$server.getOpenId(params).then(res => {
+			// 				uni.setStorageSync(this.$const.USER_OPENID, res.openid)
+			// 				this.openid = res.openid
+			// 				this.checkUser()
+			// 			})
+			// 		}
+			// 	});
+			// },
+
+			// /* 检查用户是否绑定过小程序 */
+			// checkUser() {
+			// 	const humens = uniCloud.importObject('humens')
+			// 	humens.checkOpenid(this.openid).then(res => {
+			// 		uni.showToast({
+			// 			title: res.data + '1',
+			// 		})
+			// 		if (res.data) {
+			// 			this.goHome()
+			// 		} else {
+			// 			this.getUserInfo()
+			// 		}
+			// 	})
+			// },
+
+			loginFn() {
 				uni.login({
 					provider: 'weixin',
 					success: (loginRes) => {
@@ -95,7 +131,6 @@
 							grant_type: 'authorization_code',
 						}
 						this.$server.getOpenId(params).then(res => {
-							uni.setStorageSync(this.$const.USER_OPENID, res.openid)
 							this.openid = res.openid
 							this.checkUser()
 						})
@@ -103,17 +138,18 @@
 				});
 			},
 
-			/* 检查用户是否绑定过小程序 */
 			checkUser() {
-				const humens = uniCloud.importObject('humens')
-				humens.checkOpenid(this.openid).then(res => {
-					uni.showToast({
-						title: res.data + '1',
-					})
-					if (res.data) {
+				const db = uniCloud.database();
+				db.collection('user').where({
+					openid: this.openid,
+				}).get({one: true}).then(res => {
+					const userData = res.result.data[0]
+					if (userData) {
+						console.log("userData::: ", userData);
 						this.goHome()
+						uni.setStorageSync(this.$const.USER_INFO, userData)
 					} else {
-						this.getUserInfo()
+						this.showBtn = true
 					}
 				})
 			},
@@ -122,9 +158,20 @@
 				uni.getUserProfile({
 					desc: '展示用户信息头像和名称',
 					lang: 'zh_CN',
-					success: (res) => {
-						console.log("res::: ", res);
-						this.$refs.humenList.open()
+					success: ({ userInfo }) => {
+						const db = uniCloud.database();
+						db.collection('user').add({
+							openid: this.openid,
+							userInfo: userInfo
+						}).then(res => {
+							uni.setStorageSync(this.$const.USER_INFO, userInfo)
+							this.goHome()
+						}).catch(() => {
+							uni.showToast({
+								title: '你网不好吧？',
+								icon: 'error'
+							})
+						})
 					}
 				})
 			},
@@ -137,7 +184,7 @@
 
 			goHome() {
 				uni.reLaunch({
-					url: '/pages/humens/index'
+					url: '/pages/diary/index'
 				})
 			},
 			
