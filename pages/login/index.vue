@@ -121,21 +121,21 @@
 			// },
 
 			loginFn() {
-				uni.login({
-					provider: 'weixin',
-					success: (loginRes) => {
-						const params = {
-							appid: 'wx3ebc9d7e8fd3d444',
-							secret: 'd809ad3fa67f8b9146aa4934f99c93ba',
-							js_code: loginRes.code,
-							grant_type: 'authorization_code',
-						}
-						this.$server.getOpenId(params).then(res => {
-							this.openid = res.openid
+				// uni.login({
+				// 	provider: 'weixin',
+				// 	success: (loginRes) => {
+				// 		const params = {
+				// 			appid: 'wx3ebc9d7e8fd3d444',
+				// 			secret: 'd809ad3fa67f8b9146aa4934f99c93ba',
+				// 			js_code: loginRes.code,
+				// 			grant_type: 'authorization_code',
+				// 		}
+				// 		this.$server.getOpenId(params).then(res => {
+				// 			this.openid = res.openid
+				// 		})
+				// 	}
+				// });
 							this.checkUser()
-						})
-					}
-				});
 			},
 
 			checkUser() {
