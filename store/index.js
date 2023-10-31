@@ -28,7 +28,9 @@ export default new Vuex.Store({
 		},
 		currentTheme: 'green',
 		lang: 'zh',
-		count: 0
+		count: 0,
+		userInfo: null,
+		
 	},
 	mutations: {
 

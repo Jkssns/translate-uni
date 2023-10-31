@@ -37,6 +37,11 @@ export default {
 			'新年新气象': '新年新气象',
 			'肥宅翻译祝您的英语水平直线下降': '肥宅翻译祝您的英语水平直线下降',
 		},
+		diary: {
+			'写好了': "写好了",
+			'你未卜先知？': "你未卜先知？",
+			
+		}
 	},
 	en: {
 		common: {
@@ -76,5 +81,10 @@ export default {
 			'新年新气象': "New year New people",
 			'肥宅翻译祝您的英语水平直线下降': 'an zhu your English good to bad',
 		},
+		diary: {
+			'写好了': "Done",
+			'你未卜先知？': "Are you a prophet?",
+
+		}
 	},
 }

@@ -1,7 +1,7 @@
 <template>
 	<div class="login_container">
 		<image class="login_bg" src="/static/imgs/login/boji1.jpeg" alt="" mode="aspectFill" />
-		<uni-button class="login_btn" @tap="getUserInfo" v-if="showBtn">{{$t('login.点一下')}}</uni-button>
+		<uni-button class="login_btn" @tap="goHome" v-if="showBtn">点这里进奥~</uni-button>
 		<!-- <uni-popup ref="humenList" type="bottom">
 			<div class="Confirm_Bar">
 				<span class="Cancel_Text" @tap="cancel">{{$t('common.取消')}}</span>
@@ -49,12 +49,28 @@
 				openid: '',
 				checkedHumenId: '',
 				showBtn: false,
+				shareText: [
+					'快来记录今天的本院吧！',
+					'病友，你有做史官的才能！',
+					'历史由你书写！',
+					'自盘古开天辟地后......',
+					'不要挤，一个一个来。',
+					'你在干什么？波吉在盯着你！',
+				],
 			}
 		},
 		
 		onReady() {
 			// this.checkSession()
 			this.loginFn()
+		},
+		
+		onShareAppMessage(res) {
+			const random = Math.floor(Math.random() * 6)
+			return {
+			  title: this.shareText[random],
+			  path: '/pages/login/index'
+			}
 		},
 		
 		methods: {
@@ -119,6 +135,19 @@
 			// 		}
 			// 	})
 			// },
+			
+			// getLoginText() {
+			// 	const db = uniCloud.database();
+			// 	db.collection('text').where({
+			// 		openid: this.openid,
+			// 	}).get({one: true}).then(res => {
+			// 		const data = res.result.data[0]
+			// 		if (data) {
+			// 			uni.setStorageSync(this.$const.USER_INFO, {openid: this.openid, ...data.userInfo})
+			// 		}
+			// 		this.showBtn = true
+			// 	})
+			// },
 
 			loginFn() {
 				// uni.login({
@@ -139,40 +168,16 @@
 			},
 
 			checkUser() {
+				uni.setStorageSync(this.$const.USER_INFO, null)
 				const db = uniCloud.database();
 				db.collection('user').where({
 					openid: this.openid,
 				}).get({one: true}).then(res => {
-					const userData = res.result.data[0]
-					if (userData) {
-						console.log("userData::: ", userData);
-						this.goHome()
-						uni.setStorageSync(this.$const.USER_INFO, userData)
-					} else {
-						this.showBtn = true
+					const data = res.result.data[0]
+					if (data) {
+						uni.setStorageSync(this.$const.USER_INFO, {openid: this.openid, ...data.userInfo})
 					}
-				})
-			},
-
-			getUserInfo() {
-				uni.getUserProfile({
-					desc: '展示用户信息头像和名称',
-					lang: 'zh_CN',
-					success: ({ userInfo }) => {
-						const db = uniCloud.database();
-						db.collection('user').add({
-							openid: this.openid,
-							userInfo: userInfo
-						}).then(res => {
-							uni.setStorageSync(this.$const.USER_INFO, userInfo)
-							this.goHome()
-						}).catch(() => {
-							uni.showToast({
-								title: '你网不好吧？',
-								icon: 'error'
-							})
-						})
-					}
+					this.showBtn = true
 				})
 			},
 
@@ -183,7 +188,7 @@
 			},
 
 			goHome() {
-				uni.reLaunch({
+				uni.redirectTo({
 					url: '/pages/diary/index'
 				})
 			},

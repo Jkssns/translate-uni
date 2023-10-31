@@ -25,6 +25,15 @@ Vue.prototype.toast = (title, duration = 1500, obj) => {
 	})
 }
 
+uni.s = () => {
+	uni.showLoading({
+		title: 'Loading...'
+	})
+}
+uni.h = () => {
+	uni.hideLoading()
+}
+
 // 由于微信小程序的运行机制问题，需声明如下一行，H5和APP非必填
 App.mpType = 'app'
 Vue.config.productionTip = false

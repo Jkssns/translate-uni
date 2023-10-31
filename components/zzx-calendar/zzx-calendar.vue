@@ -210,7 +210,7 @@
 				}
 			},
 			// 初始化日历的方法
-			initDate(cur) {
+			initDate(cur, flag) {
 				let date = ''
 				if (cur) {
 				  date = new Date(cur)
@@ -263,6 +263,10 @@
 					obj.end = end;
 				}
 				this.$emit('days-change', obj)
+				if (flag === 'back') {
+					const today = days.find(item => item.isToday)
+					today && this.clickItem(today)
+				}
 			},
 			//  上一个
 			daysPre () {
@@ -308,7 +312,7 @@
 			},
 			goback() {
 				const d = new Date();
-				this.initDate(d);
+				this.initDate(d, 'back');
 			}
 		},
 		created() {
