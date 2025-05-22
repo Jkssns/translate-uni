@@ -1,8 +1,8 @@
 {
     "name" : "translate",
     "appid" : "__UNI__BA36107",
-    "description" : "翻译程序",
-    "versionName" : "1.0.0",
+    "description" : "防止晕车、晕动",
+    "versionName" : "1.0.1",
     "versionCode" : 1,
     "transformPx" : false,
     /* 5+App特有相关 */
@@ -81,7 +81,12 @@
             "es6" : true,
             "postcss" : true
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission": {
+            "scope.writePhotosAlbum": {
+                "desc": "保存二维码到相册"
+            }
+        }
     },
     "mp-alipay" : {
         "usingComponents" : true

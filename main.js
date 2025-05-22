@@ -9,11 +9,10 @@ Vue.use(i18n)
 
 /* 配置 */
 import utils from '@/utils/index.js'
-import server from '@/server/index.js'
+
 import $const from '@/utils/const.js'
 
 Vue.prototype.$utils = utils
-Vue.prototype.$server = server
 Vue.prototype.$const = $const
 
 Vue.prototype.toast = (title, duration = 1500, obj) => {

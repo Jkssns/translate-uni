@@ -149,8 +149,8 @@
 
 <style scoped>
 	.uni-popup-dialog {
-		width: 300px;
-		border-radius: 15px;
+		width: 600rpx;
+		border-radius: 30rpx;
 		background-color: #fff;
 	}
 
@@ -160,12 +160,12 @@
 		/* #endif */
 		flex-direction: row;
 		justify-content: center;
-		padding-top: 15px;
-		padding-bottom: 5px;
+		padding-top: 30rpx;
+		padding-bottom: 10rpx;
 	}
 
 	.uni-dialog-title-text {
-		font-size: 16px;
+		font-size: 32rpx;
 		font-weight: 500;
 	}
 
@@ -176,11 +176,11 @@
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-		padding: 5px 15px 15px 15px;
+		padding: 10rpx 30rpx 30rpx 30rpx;
 	}
 
 	.uni-dialog-content-text {
-		font-size: 14px;
+		font-size: 28rpx;
 		color: #6e6e6e;
 	}
 
@@ -191,7 +191,7 @@
 		flex-direction: row;
 		border-top-color: #f5f5f5;
 		border-top-style: solid;
-		border-top-width: 1px;
+		border-top-width: 2rpx;
 	}
 
 	.uni-dialog-button {
@@ -203,17 +203,17 @@
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-		height: 45px;
+		height: 90rpx;
 	}
 
 	.uni-border-left {
 		border-left-color: #f0f0f0;
 		border-left-style: solid;
-		border-left-width: 1px;
+		border-left-width: 2rpx;
 	}
 
 	.uni-dialog-button-text {
-		font-size: 14px;
+		font-size: 28rpx;
 	}
 
 	.uni-button-color {

@@ -2,88 +2,78 @@
 	"easycom": {
 		"autoscan": true,
 		"custom": {
-		  "^uni-(.*)": "@/components/uni-$1/uni-$1.vue" // 匹配components目录内的vue文件
+			"^uni-(.*)": "@/components/uni-$1/uni-$1.vue"
 		}
 	},
 	"pages": [
+		
 		{
-			"path": "pages/login/index",
-			"style": {}
-		},
-		{
-			"path": "pages/diary/index",
+			"path": "pages/audio/audio",
 			"style": {
-				"navigationBarTitleText": "我院日记"
+				"navigationBarTitleText": "防晕车"
 			}
 		},
 		{
-			"path": "pages/humens/index",
-			"style": {}
+			"path": "pages/other/other",
+			"style": {
+				"navigationBarTitleText": "更多功能"
+			}
 		},
 		{
-			"path": "pages/humens/edit",
-			"style": {}
-		},{
-		  "path": "pages/translate/index",
-		  "style": {}  
+			"path": "pages/noise/noise",
+			"style": {
+				"navigationBarTitleText": "交通环境噪音检测"
+			}
 		},
 		{
-			"path": "pages/code/index",
-			"style": {}
+			"path": "pages/bmi/bmi",
+			"style": {
+				"navigationBarTitleText": "BMI值计算"
+			}
 		},
 		{
-			"path": "pages/user-info/index",
-			"style": {}
+			"path": "pages/qrcode/qrcode",
+			"style": {
+				"navigationBarTitleText": "二维码生成器"
+			}
+		},
+		{
+			"path": "pages/ruler/ruler",
+			"style": {
+				"navigationBarTitleText": "应急尺子"
+			}
+		},
+		{
+			"path": "pages/imagehost/imagehost",
+			"style": {
+				"navigationBarTitleText": "图片临时存储"
+			}
 		}
-		// ,
-		// {
-		// 	"path": "pages/user-info/user-edit",
-		// 	"style": {}
-		// }
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "", 
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/audio/audio",
+				"iconPath": "static/imgs/tabbar/audio.png",
+				"selectedIconPath": "static/imgs/tabbar/audio-active.png",
+				"text": "防晕车"
+			},
+			{
+				"pagePath": "pages/other/other",
+				"iconPath": "static/imgs/tabbar/other.png",
+				"selectedIconPath": "static/imgs/tabbar/other-active.png",
+				"text": "更多功能"
+			}
+		]
 	}
-	// ,
-	// "tabBar": {
-	//     "color": "#3a3a3a",
-	//     "selectedColor": "#409eff",
-	//     "borderStyle": "black",
-	//     "backgroundColor": "#ffffff",
-	// 	"list": [
-	// 		{ 
-	// 			"pagePath": "pages/user-info/index",
-	// 			"iconPath": "static/imgs/tabbar/user.jpg",
-	// 			"selectedIconPath": "static/imgs/tabbar/user_selected.jpg",
-	// 			"text": "我的"
-	// 		},
-	// 		{ 
-	// 			"pagePath": "pages/humens/index",
-	// 			"iconPath": "static/imgs/tabbar/user_list.jpg",
-	// 			"selectedIconPath": "static/imgs/tabbar/user_list_selected.jpg",
-	// 			"text": "病友"
-	// 		},
-	// 		{
-	// 			"pagePath": "pages/diary/index",
-	// 			"iconPath": "static/imgs/tabbar/diary.jpg",
-	// 			"selectedIconPath": "static/imgs/tabbar/diary_selected.jpg",
-	// 			"text": "群日记"
-	// 		},
-	// 		{
-	// 			"pagePath": "pages/translate/index",
-	// 			"iconPath": "static/imgs/tabbar/translate.jpg",
-	// 			"selectedIconPath": "static/imgs/tabbar/translate_selected.jpg",
-	// 			"text": "翻译"
-	// 		},
-	// 		{
-	// 			"pagePath": "pages/code/index",
-	// 			"iconPath": "static/imgs/tabbar/code.jpg",
-	// 			"selectedIconPath": "static/imgs/tabbar/code_selected.jpg",
-	// 			"text": "JS"
-	// 		}
-	// 	]
-	// }
 }
