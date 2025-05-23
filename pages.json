@@ -38,12 +38,6 @@
 			}
 		},
 		{
-			"path": "pages/ruler/ruler",
-			"style": {
-				"navigationBarTitleText": "应急尺子"
-			}
-		},
-		{
 			"path": "pages/imagehost/imagehost",
 			"style": {
 				"navigationBarTitleText": "图片临时存储"

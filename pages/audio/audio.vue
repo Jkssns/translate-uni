@@ -40,7 +40,7 @@
 		<view class="info-section">
 			<view class="info-item">
 				<text class="question">Q：什么时候听？</text>
-				<text class="answer">A：乘车前，至少听1分钟。</text>
+				<text class="answer">A：最好乘车前，乘车中也有效，至少听1分钟。</text>
 			</view>
 
 			<view class="info-item">

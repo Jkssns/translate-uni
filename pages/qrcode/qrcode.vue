@@ -4,6 +4,10 @@
 			<view class="qr-preview">
 				<canvas type="2d" id="qrcode" class="qrcode-canvas"></canvas>
 				<image v-if="qrCodePath" :src="qrCodePath" mode="aspectFit" class="qrcode-image"></image>
+				<view v-else class="qr-placeholder">
+					<text class="placeholder-icon">📱</text>
+					<text class="placeholder-text">请输入内容生成二维码</text>
+				</view>
 			</view>
 			
 			<view class="input-section">
@@ -214,18 +218,44 @@
 	height: 400rpx;
 	margin: 0 auto 40rpx;
 	position: relative;
+	background-color: #f8f8f8;
+	border-radius: 20rpx;
+	overflow: hidden;
 }
 
 .qrcode-canvas {
 	width: 400rpx;
 	height: 400rpx;
 	position: absolute;
-	left: -9999rpx;
+	opacity: 0;
+	pointer-events: none;
 }
 
 .qrcode-image {
 	width: 100%;
 	height: 100%;
+	object-fit: contain;
+}
+
+.qr-placeholder {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	color: #999;
+}
+
+.placeholder-icon {
+	font-size: 80rpx;
+	margin-bottom: 20rpx;
+}
+
+.placeholder-text {
+	font-size: 28rpx;
+	text-align: center;
+	padding: 0 40rpx;
 }
 
 .input-section {
