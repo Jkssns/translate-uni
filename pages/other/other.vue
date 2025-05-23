@@ -36,7 +36,7 @@
 				<view class="arrow"></view>
 			</view>
 
-			<view class="function-item" @click="navigateTo('/pages/ruler/ruler')">
+			<!-- <view class="function-item" @click="navigateTo('/pages/ruler/ruler')">
 				<view class="function-icon ruler-icon">
 					<view class="ruler-symbol">尺</view>
 				</view>
@@ -45,7 +45,7 @@
 					<text class="function-desc">应急测量工具，精确到厘米</text>
 				</view>
 				<view class="arrow"></view>
-			</view>
+			</view> -->
 
 			<view class="function-item" @click="navigateTo('/pages/imagehost/imagehost')">
 				<view class="function-icon imagehost-icon">

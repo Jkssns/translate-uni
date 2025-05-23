@@ -220,25 +220,52 @@
 		},
 		onLoad() {
 			innerAudioContext.src = '/static/audio/100hz.mp3';
+			
+			// 监听音频加载完成事件
+			innerAudioContext.onCanplay(() => {
+				// 尝试获取音频时长
+				if (innerAudioContext.duration > 0) {
+					this.duration = innerAudioContext.duration;
+				} else {
+					// 如果无法立即获取时长，设置一个默认值
+					this.duration = 100; // 假设音频长度为100秒
+				}
+			});
+			
+			// 监听播放开始
 			innerAudioContext.onPlay(() => {
 				this.isPlaying = true;
+				// 开始播放时再次尝试获取时长
+				if (innerAudioContext.duration > 0) {
+					this.duration = innerAudioContext.duration;
+				}
 			});
+			
 			innerAudioContext.onPause(() => {
 				this.isPlaying = false;
 			});
+			
 			innerAudioContext.onStop(() => {
 				this.isPlaying = false;
 				this.progress = 0;
 				this.currentTime = 0;
 			});
+			
+			// 优化时间更新逻辑
 			innerAudioContext.onTimeUpdate(() => {
+				this.currentTime = innerAudioContext.currentTime || 0;
 				if (this.duration > 0) {
-					this.currentTime = innerAudioContext.currentTime;
 					this.progress = (this.currentTime / this.duration) * 100;
 				}
 			});
-			innerAudioContext.onCanplay(() => {
-				this.duration = innerAudioContext.duration;
+			
+			// 监听错误事件
+			innerAudioContext.onError((res) => {
+				console.error('音频播放错误：', res);
+				uni.showToast({
+					title: '音频加载失败',
+					icon: 'none'
+				});
 			});
 		},
 		onUnload() {
